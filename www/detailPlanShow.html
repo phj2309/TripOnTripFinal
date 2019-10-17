@@ -138,10 +138,17 @@
                                                                 </button>
                                                             
                                                         </h4>
+
+                                                        <style>
+                                                            .time{
+                                                                font-size :7pt;
+                                                                margin-left:5px;
+                                                            }
+                                                        </style>
                                                         <ul class="drag-list">
                                                             <% if(locals.detailList) { 
                                                                 for(var i=0; i<detailList.length; i++) { %>
-                                                                        <li><span class="title"><%= detailList[i] %></span><span class="drag-area"></span></li>
+                                                                        <li><span class="title"><%= detailList[i].content %><h10 class ="time"><%= detailList[i].startTime %> ~ <%= detailList[i].finishTime %></h10></span><span class="drag-area"></span></li>
                                                               <%  } }%>
                                                             
                                                         </ul>

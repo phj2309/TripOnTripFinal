@@ -142,9 +142,13 @@ exports.insertDetailPlan = async function(req, res)
             console.log("insertPlace success");
             mapper.plan.detailPlanList(planId, days).then(function(result) {
                 console.log("detailPlanList 호출");
-                var detailList = new Array();
+                var detailList = [];
                 for(var i=0; i<result.length; i++) {
-                    detailList[i] = result[i].content;
+                    var st = result[i].startTime;
+                    st = st.substring(0, 5);
+                    var ft = result[i].finishTime;
+                    ft = ft.substring(0, 5);
+                    detailList.push({content: result[i].content, startTime: st, finishTime: ft})
                 }
                 res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: days });
              }).catch(function(error) {
