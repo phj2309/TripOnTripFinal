@@ -140,17 +140,20 @@ exports.insertDetailPlan = async function(req, res)
         var days_detail_id = result.insertId;
         mapper.map.insertPlace(days_detail_id, address, keyword, latitude, longitude).then(function(result) {
             console.log("insertPlace success");
-            mapper.plan.detailPlanList(planId, days).then(function(result) {
+            mapper.plan.detailPlanList(planId).then(function(result) {
                 console.log("detailPlanList 호출");
                 var detailList = [];
                 for(var i=0; i<result.length; i++) {
+                    var dayday = result[i].days;
+                    dayday = dayday.substring(3, 4);
+                    console.log(dayday);
                     var st = result[i].startTime;
                     st = st.substring(0, 5);
                     var ft = result[i].finishTime;
                     ft = ft.substring(0, 5);
-                    detailList.push({content: result[i].content, startTime: st, finishTime: ft})
+                    detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
                 }
-                res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: days });
+                res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: days});
              }).catch(function(error) {
                  console.log(error);
              });

@@ -117,11 +117,11 @@ module.exports = {
 			});
 		});
 	},
-	detailPlanList: function(_planId, _days) {
+	detailPlanList: function(_planId) {
 		return new Promise(function(resolve, reject) {
-			var selectQuery = 'SELECT * FROM tripontrip_db.days_detail WHERE plan_id = ? and days = ?';
+			var selectQuery = 'SELECT * FROM tripontrip_db.days_detail WHERE plan_id = ?';
 
-			sql.excuteParam(selectQuery, [_planId, _days]).then(function(rows) {
+			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
 
@@ -137,6 +137,34 @@ module.exports = {
 
 			sql.excuteParam(insertQuery, [_days, _comment]).then(function(rows) {
 				resolve(true);
+			}).catch(function(error) {
+				reject(error);
+			});
+		});
+	},
+	planList: function() {
+		return new Promise(function(resolve, reject) {
+			var selectQuery = 'SELECT * FROM tripontrip_db.plan';
+
+			sql.excuteParam(selectQuery).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+
+				resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		});
+	},
+	groupList: function(_planId) {
+		return new Promise(function(resolve, reject) {
+			var selectQuery = 'SELECT * FROM tripontrip_db.group WHERE plan_id = ?';
+
+			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+
+				resolve(rows);
 			}).catch(function(error) {
 				reject(error);
 			});

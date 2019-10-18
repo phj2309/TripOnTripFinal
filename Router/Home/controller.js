@@ -16,6 +16,16 @@ exports.t = async function (req, res) {
 			console.log(error);
 		});
 		
+		mapper.plan.planList().then(function (result) {
+			var nickname = result[0].nickname;
+			//var planList = new Array();
+			
+
+			res.render('index.html', { nickname: nickname });
+		}).catch(function (error) {
+			console.log(error);
+		});
+		
 
 	} else {
 		res.render('index.html', {nickname: 'User'});
