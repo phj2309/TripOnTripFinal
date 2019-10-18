@@ -6,7 +6,7 @@
 
 .container {
   background: #FFFFFF;
-  height: 76vh;
+  height: 100%;
   margin: 0 auto;
   position: relative;
   box-shadow: 2px 5px 20px rgba(#777777, .5);
@@ -14,9 +14,9 @@
 
 .leftbox {
   float: left;
-  top: 0%;
-  left: 0%;
+  top: 0%;  
   position: absolute;
+  left: 0%;
   width: 17%;
   height: 100%;
   background: linear-gradient(to bottom, #9796f0, #fbc7d4 );

@@ -58,7 +58,7 @@
 
 #mapSearch{
   float : left;
-width : 250px;
+width : 200px;
 margin-left : 30px;
 
 }
@@ -79,6 +79,12 @@ margin-left : 30px;
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+* {
+  font-family: 'Spoqa Han Sans', 'Sans-serif';
+  font-weight: 400;
+
 }
 
 html {
@@ -116,7 +122,11 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
+  
   background-color: #fafafa;
+
+  background-image: url('../img/back04.png');
+  background-size : cover;
 }
 
 [tabindex="-1"]:focus {
@@ -462,6 +472,7 @@ template {
   }
   .navbar {
     display: none;
+    
   }
   .badge {
     border: 1px solid #000;
@@ -4257,9 +4268,11 @@ tbody.collapse.show {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   line-height: inherit;
   white-space: nowrap;
+  font-style : bold;
+    color: black;
 }
 
 .navbar-brand:hover,
@@ -14547,6 +14560,9 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   position: relative;
   top: 0;
   height: 100vh;
+  background-color:#E4E4E4;
+  background-image: url('../img/back04.png');
+  background-size : cover;
 }
 
 .sidebar {
@@ -14959,6 +14975,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   float: right;
   width: calc(100% - 260px);
   transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+
 }
 
 .main-panel>.content {

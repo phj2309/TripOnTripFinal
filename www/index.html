@@ -1,124 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8"/>
-        <link rel="apple-touch-icon" sizes="76x76" href="../static/img/apple-icon.png">
-        <link rel="icon" type="image/png" href="../static/img/favicon.png">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>Trip On Trip
-        </title>
-        <meta
-            content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-            name='viewport'/>
-        <!-- Fonts and icons -->
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
-        <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-        <!-- CSS Files -->
-        <link href="../static/css/subin_dash.css" rel="stylesheet"/>
-        <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="../static/demo/demo.css" rel="stylesheet"/>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../static/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../static/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Trip On Trip
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!-- Fonts and icons -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="../static/css/subin_dash.css" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../static/demo/demo.css" rel="stylesheet" />
+</head>
 
-    <body class="">
-        <div class="wrapper ">
-            <div class="sidebar" data-color="purple" data-background-color="white">
-                <!-- Tip 1: You can change the color of the sidebar using: data-color="purple |
+<body class="">
+    <div class="wrapper ">
+        <div class="sidebar" data-color="purple" data-background-color="white">
+            <!-- Tip 1: You can change the color of the sidebar using: data-color="purple |
                 azure | green | orange | danger" Tip 2: you can also add an image using
                 data-image tag -->
-                <div class="logo">
-                    <a class="simple-text logo-normal" href="./">
-                        Trip ON Trip
-                    </a>
-                </div>
-                <div class="sidebar-wrapper">
-                    <ul class="nav">
-                        <li class="nav-item active ">
-                            <a class="nav-link" href="./">
-                                <i class="material-icons">home</i>
-                                <p>HOME</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./plan">
-                                <i class="material-icons">flight_takeoff</i>
-                                <p>PLAN</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./expense">
-                                <i class="material-icons">attach_money</i>
-                                <p>Expense</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./favoritePlan">
-                                <i class="material-icons">favorite</i>
-                                <p>Favorite Plan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link"
-                                href="#pablo"
-                                id="navbarDropdownProfile"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="material-icons">person</i>
-                                <p><%= nickname %></p>
-                                
-                                <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-right"
-                                aria-labelledby="navbarDropdownProfile">
-                                <a class="dropdown-item" href="./costPage">Profile</a>
-                                <a class="dropdown-item" href="#">Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <% if(nickname == 'User'){ %>
-                                    <a class="dropdown-item" href="./user/login">Log In</a>
-                                <% } else { %>
-                                    <a class="dropdown-item" href="./user/logout">Log Out</a>
-                                <% } %>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+            <div class="logo">
+                <a class="simple-text logo-normal" href="./">
+                    Trip ON Trip
+                </a>
             </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item active ">
+                        <a class="nav-link" href="./">
+                            <i class="material-icons">home</i>
+                            <p>HOME</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./plan">
+                            <i class="material-icons">flight_takeoff</i>
+                            <p>PLAN</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./expense">
+                            <i class="material-icons">attach_money</i>
+                            <p>Expense</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./favoritePlan">
+                            <i class="material-icons">favorite</i>
+                            <p>Favorite Plan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">person</i>
+                            <p><%= nickname %></p>
 
-            <div class="main-panel">
-                <!-- Navbar 상단 메뉴(검색창 포함)-->
-                <nav
-                    class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-                    <div class="container-fluid">
-                        <div class="navbar-wrapper">
-                            <a class="navbar-brand" href="#pablo">All Trip List</a>
+                            <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                            <a class="dropdown-item" href="./costPage">Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <% if(nickname == 'User'){ %>
+                            <a class="dropdown-item" href="./user/login">Log In</a>
+                            <% } else { %>
+                            <a class="dropdown-item" href="./user/logout">Log Out</a>
+                            <% } %>
                         </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-                        <button
-                            class="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            aria-controls="navigation-index"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="navbar-toggler-icon icon-bar"></span>
-                            <span class="navbar-toggler-icon icon-bar"></span>
-                            <span class="navbar-toggler-icon icon-bar"></span>
-                        </button>
+        <div class="main-panel">
+            <!-- Navbar 상단 메뉴(검색창 포함)-->
+            <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <a class="navbar-brand" style="font-weight:bold; color:black;">All Trip List</a>
+                    </div>
 
-                        <div>
-
-                            <form class="form2" style= "margin-left:30px;">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                    </button>
+                    <div class="container-fluid">
+                            <form class="form2"  style="background-color: #ffffff90;">
                                 <!-- 드롭다운 추가 -->
-                                <div class="dropdown" style="display: inline-block;">
+                                <div class="dropdown" style="display: inline-block; margin-right: 5px;">
                                     <a
                                         id="dLabel"
                                         data-target="#test"
@@ -127,331 +107,362 @@
                                         aria-haspopup="true"
                                         role="button"
                                         aria-expanded="false">
-                                        FILTER
+                                        TITLE
                                         <i class="material-icons">keyboard_arrow_down</i>
                                         <span class="caret"></span>
                                     </a>
                                     <div id="test" class="collapse">
-                                        <ul class="dropdown-menu dropdown-menu" role="menu" aria-labelledby="dLabel" style="display: block;">
-                                            <li>
-                                                <a href="#" class="dropdown-item">TITLE</a>
-                                            </li>
+                                        <ul class="dropdown-menu dropdown-menu" role="menu" aria-labelledby="dLabel" style="display: inline-block;">
                                             <li>
                                                 <a href="#" class="dropdown-item">PLACE</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">COUNTRY</a>
-                                            </li>
+                                            </li>                                            
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="Search...">
-                                    <nbsp;>
-                                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                            
+                            <div class="input-group no-border">
+                                <input type="text" value="" class="form-control" placeholder="Search...">
+                                    <button type="submit" class="btn btn-white btn-round btn-just-icon" style="position:relative; right:-10%;">
                                         <i class="material-icons">search</i>
-                                        <div class="ripple-container"></div>
                                     </button>
-                                </div>
-                            </form>
+                            </div>
+                        </form>
 
-                        </div>
                     </div>
-                </nav>
+                </div>
+            </nav>
             </br>
                 <!-- End Navbar 피드 들어가는 공간-->
                 <div class="content">
-                    <div class="container-fluid"  style="margin-top: -10px;">
+                    <div class="container-fluid">
                         <div class="row">
-                                <div class="col-12 col-sm-6 col-lg-4">
-                                        <div class="card">
-                                            <div class="card-header card-header-warning">
-                                                <h3 class="card-title">글티 17 라오스 탐방기</h4>
-                                                <p class="card-category">2018-8-19 ~ 2018-8-23</p>
-                                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4" >
+                                <div class="card" id="cardClick" style="background-color: #ffffff90;">
+                                            
                                             <div class="card-body table-responsive">
                                                 <div class="card-category">
-                                                    <img
-                                                        src="../static/img/none_image.png"
-                                                        style="width: 100%; height: 300px;"
+                                                    <img src="../static/img/mal.jpg"
+                                                        style="width: 100%; height: 200px;"
                                                         alt="trip_review_image"/>
-                                                   
                                                 </div>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="stats">
-                                                    <i class="material-icons">local_offer</i>
-                                                    11_hyeon, soubii424
+                                                <div class="mainview">
+                                                        <p style="margin:10px 0px 5px 0px; font-weight: bold; font-size:20px; color:black;">지유니네 놀러가기</p>
+                                                        <p style="margin:0px;">2019-6-30 ~ 2019-7-4</p>
+                                                        <p style="margin:0px;"><img src="../static/img/local_offer.svg" style=" width:20px; height:20px; padding-right: 5px;"/>
+                                                            30under_juu, Zyoon2_da
+                                                        </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                            
-                            
-                        </div>
+
+                                    <div class="col-12 col-sm-6 col-lg-4" >
+                                            <div class="card" id="cardClick" style="background-color: #ffffff90;">
+                                                        
+                                                        <div class="card-body table-responsive">
+                                                            <div class="card-category">
+                                                                <img src="../static/img/mal.jpg"
+                                                                    style="width: 100%; height: 200px;"
+                                                                    alt="trip_review_image"/>
+                                                            </div>
+                                                            <div class="mainview">
+                                                                    <p style="margin:10px 0px 5px 0px; font-weight: bold; font-size:20px; color:black;">지유니네 놀러가기</p>
+                                                                    <p style="margin:0px;">2019-6-30 ~ 2019-7-4</p>
+                                                                    <p style="margin:0px;"><img src="../static/img/local_offer.svg" style=" width:20px; height:20px; padding-right: 5px;"/>
+                                                                        30under_juu, Zyoon2_da
+                                                                    </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                  
+                                    <div class="col-12 col-sm-6 col-lg-4">
+                                            <div class="card" id="cardClick" style="background-color: #ffffff90;">
+                                                        
+                                                        <div class="card-body table-responsive">
+                                                            <div class="card-category">
+                                                                <img src="../static/img/loas.jpg"
+                                                                    style="width: 100%; height: 200px;"
+                                                                    alt="trip_review_image"/>
+                                                            </div>
+                                                            <div class="mainview">
+                                                                    <p style="margin:10px 0px 5px 0px; font-weight: bold; font-size:20px; color:black;">지유니네 놀러가기</p>
+                                                                    <p style="margin:0px;">2019-6-30 ~ 2019-7-4</p>
+                                                                    <p style="margin:0px;"><img src="../static/img/local_offer.svg" style=" width:20px; height:20px; padding-right: 5px;"/>
+                                                                        30under_juu, Zyoon2_da
+                                                                    </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                     </div>
-
                 </div>
+
             </div>
+        </div>
 
-            <!-- Core JS Files -->
-            <script src="../static/js/core/jquery.min.js"></script>
-            <script src="../static/js/core/popper.min.js"></script>
-            <script src="../static/js/core/bootstrap-material-design.min.js"></script>
-            <script src="../static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-            <!-- Plugin for the momentJs -->
-            <script src="../static/js/plugins/moment.min.js"></script>
-            <!-- Plugin for Sweet Alert -->
-            <script src="../static/js/plugins/sweetalert2.js"></script>
-            <!-- Forms Validations Plugin -->
-            <script src="../static/js/plugins/jquery.validate.min.js"></script>
-            <!-- Plugin for the Wizard, full documentation here:
+        <!-- Core JS Files -->
+        <script src="../static/js/core/jquery.min.js"></script>
+        <script src="../static/js/core/popper.min.js"></script>
+        <script src="../static/js/core/bootstrap-material-design.min.js"></script>
+        <script src="../static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!-- Plugin for the momentJs -->
+        <script src="../static/js/plugins/moment.min.js"></script>
+        <!-- Plugin for Sweet Alert -->
+        <script src="../static/js/plugins/sweetalert2.js"></script>
+        <!-- Forms Validations Plugin -->
+        <script src="../static/js/plugins/jquery.validate.min.js"></script>
+        <!-- Plugin for the Wizard, full documentation here:
             https://github.com/VinceG/twitter-bootstrap-wizard -->
-            <script src="../static/js/plugins/jquery.bootstrap-wizard.js"></script>
-            <!-- Plugin for Select, full documentation here:
+        <script src="../static/js/plugins/jquery.bootstrap-wizard.js"></script>
+        <!-- Plugin for Select, full documentation here:
             http://silviomoreto.github.io/bootstrap-select -->
-            <script src="../static/js/plugins/bootstrap-selectpicker.js"></script>
-            <!-- Plugin for the DateTimePicker, full documentation here:
+        <script src="../static/js/plugins/bootstrap-selectpicker.js"></script>
+        <!-- Plugin for the DateTimePicker, full documentation here:
             https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-            <script src="../static/js/plugins/bootstrap-datetimepicker.min.js"></script>
-            <!-- DataTables.net Plugin, full documentation here: https://datatables.net/ -->
-            <script src="../static/js/plugins/jquery.dataTables.min.js"></script>
-            <!-- Plugin for Tags, full documentation here:
+        <script src="../static/js/plugins/bootstrap-datetimepicker.min.js"></script>
+        <!-- DataTables.net Plugin, full documentation here: https://datatables.net/ -->
+        <script src="../static/js/plugins/jquery.dataTables.min.js"></script>
+        <!-- Plugin for Tags, full documentation here:
             https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs -->
-            <script src="../static/js/plugins/bootstrap-tagsinput.js"></script>
-            <!-- Plugin for Fileupload, full documentation here:
+        <script src="../static/js/plugins/bootstrap-tagsinput.js"></script>
+        <!-- Plugin for Fileupload, full documentation here:
             http://www.jasny.net/bootstrap/javascript/#fileinput -->
-            <script src="../static/js/plugins/jasny-bootstrap.min.js"></script>
-            <!-- Full Calendar Plugin, full documentation here:
+        <script src="../static/js/plugins/jasny-bootstrap.min.js"></script>
+        <!-- Full Calendar Plugin, full documentation here:
             https://github.com/fullcalendar/fullcalendar -->
-            <script src="../static/js/plugins/fullcalendar.min.js"></script>
-            <!-- Vector Map plugin, full documentation here:
+        <script src="../static/js/plugins/fullcalendar.min.js"></script>
+        <!-- Vector Map plugin, full documentation here:
             http://jvectormap.com/documentation/ -->
-            <script src="../static/js/plugins/jquery-jvectormap.js"></script>
-            <!-- Plugin for the Sliders, full documentation here:
+        <script src="../static/js/plugins/jquery-jvectormap.js"></script>
+        <!-- Plugin for the Sliders, full documentation here:
             http://refreshless.com/nouislider/ -->
-            <script src="../static/js/plugins/nouislider.min.js"></script>
-            <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and
+        <script src="../static/js/plugins/nouislider.min.js"></script>
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and
             Android browser support SweetAlert -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-            <!-- Library for adding dinamically elements -->
-            <script src="../static/js/plugins/arrive.min.js"></script>
-            <!-- Google Maps Plugin -->
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-            <!-- Chartist JS -->
-            <script src="../static/js/plugins/chartist.min.js"></script>
-            <!-- Notifications Plugin -->
-            <script src="../static/js/plugins/bootstrap-notify.js"></script>
-            <!-- Control Center for Material Dashboard: parallax effects, scripts for the
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+        <!-- Library for adding dinamically elements -->
+        <script src="../static/js/plugins/arrive.min.js"></script>
+        <!-- Google Maps Plugin -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+        <!-- Chartist JS -->
+        <script src="../static/js/plugins/chartist.min.js"></script>
+        <!-- Notifications Plugin -->
+        <script src="../static/js/plugins/bootstrap-notify.js"></script>
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the
             example pages etc -->
-            <script src="../static/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-            <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-            <script src="../static/demo/demo.js"></script>
+        <script src="../static/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+        <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+        <script src="../static/demo/demo.js"></script>
 
-            <!-- <script>$('.dropdown-toggle').dropdown()</script> -->
-            <script>
-                $(document).ready(function () {
-                    $().ready(function () {
-                        $('.dropdown-toggle').dropdown();
+        <!-- <script>$('.dropdown-toggle').dropdown()</script> -->
+        <script>
+            $(document).ready(function () {
+                $().ready(function () {
+                    $('#cardClick').click(function () {
+                        location.href = "detailPlanShow_view";
+                    });
 
-                        $sidebar = $('.sidebar');
+                    $('.dropdown-toggle').dropdown();
 
-                        $sidebar_img_container = $sidebar.find('.sidebar-background');
+                    $sidebar = $('.sidebar');
 
-                        $full_page = $('.full-page');
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
 
-                        $sidebar_responsive = $('body > .navbar-collapse');
+                    $full_page = $('.full-page');
 
-                        window_width = $(window).width();
+                    $sidebar_responsive = $('body > .navbar-collapse');
 
-                        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+                    window_width = $(window).width();
 
-                        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-                            if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-                                $('.fixed-plugin .dropdown').addClass('open');
-                            }
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
+                    if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                        if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
                         }
 
-                        $('.fixed-plugin a').click(function (event) {
-                            // Alex if we click on switch, stop propagation of the event, so the dropdown
-                            // will not be hide, otherwise we set the  section active
-                            if ($(this).hasClass('switch-trigger')) {
-                                if (event.stopPropagation) {
-                                    event.stopPropagation();
-                                } else if (window.event) {
-                                    window.event.cancelBubble = true;
-                                }
+                    }
+
+                    $('.fixed-plugin a').click(function (event) {
+                        // Alex if we click on switch, stop propagation of the event, so the dropdown
+                        // will not be hide, otherwise we set the  section active
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
                             }
-                        });
+                        }
+                    });
 
-                        $('.fixed-plugin .active-color span').click(function () {
-                            $full_page_background = $('.full-page-background');
+                    $('.fixed-plugin .active-color span').click(function () {
+                        $full_page_background = $('.full-page-background');
 
-                            $(this)
-                                .siblings()
-                                .removeClass('active');
-                            $(this).addClass('active');
+                        $(this)
+                            .siblings()
+                            .removeClass('active');
+                        $(this).addClass('active');
 
-                            var new_color = $(this).data('color');
+                        var new_color = $(this).data('color');
 
-                            if ($sidebar.length != 0) {
-                                $sidebar.attr('data-color', new_color);
-                            }
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                        }
 
-                            if ($full_page.length != 0) {
-                                $full_page.attr('filter-color', new_color);
-                            }
+                        if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                        }
 
-                            if ($sidebar_responsive.length != 0) {
-                                $sidebar_responsive.attr('data-color', new_color);
-                            }
-                        });
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                        }
+                    });
 
-                        $('.fixed-plugin .background-color .badge').click(function () {
-                            $(this)
-                                .siblings()
-                                .removeClass('active');
-                            $(this).addClass('active');
+                    $('.fixed-plugin .background-color .badge').click(function () {
+                        $(this)
+                            .siblings()
+                            .removeClass('active');
+                        $(this).addClass('active');
 
-                            var new_color = $(this).data('background-color');
+                        var new_color = $(this).data('background-color');
 
-                            if ($sidebar.length != 0) {
-                                $sidebar.attr('data-background-color', new_color);
-                            }
-                        });
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                        }
+                    });
 
-                        $('.fixed-plugin .img-holder').click(function () {
-                            $full_page_background = $('.full-page-background');
+                    $('.fixed-plugin .img-holder').click(function () {
+                        $full_page_background = $('.full-page-background');
 
-                            $(this)
-                                .parent('li')
-                                .siblings()
-                                .removeClass('active');
-                            $(this)
-                                .parent('li')
-                                .addClass('active');
+                        $(this)
+                            .parent('li')
+                            .siblings()
+                            .removeClass('active');
+                        $(this)
+                            .parent('li')
+                            .addClass('active');
 
-                            var new_image = $(this)
-                                .find("img")
-                                .attr('src');
+                        var new_image = $(this)
+                            .find("img")
+                            .attr('src');
 
-                            if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                $sidebar_img_container.fadeOut('fast', function () {
-                                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                                    $sidebar_img_container.fadeIn('fast');
-                                });
-                            }
-
-                            if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                var new_image_full_page = $('.fixed-plugin li.active .img-holder')
-                                    .find('img')
-                                    .data('src');
-
-                                $full_page_background.fadeOut('fast', function () {
-                                    $full_page_background.css(
-                                        'background-image',
-                                        'url("' + new_image_full_page + '")'
-                                    );
-                                    $full_page_background.fadeIn('fast');
-                                });
-                            }
-
-                            if ($('.switch-sidebar-image input:checked').length == 0) {
-                                var new_image = $('.fixed-plugin li.active .img-holder')
-                                    .find("img")
-                                    .attr('src');
-                                var new_image_full_page = $('.fixed-plugin li.active .img-holder')
-                                    .find('img')
-                                    .data('src');
-
+                        if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function () {
                                 $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                $sidebar_img_container.fadeIn('fast');
+                            });
+                        }
+
+                        if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder')
+                                .find('img')
+                                .data('src');
+
+                            $full_page_background.fadeOut('fast', function () {
                                 $full_page_background.css(
                                     'background-image',
                                     'url("' + new_image_full_page + '")'
                                 );
+                                $full_page_background.fadeIn('fast');
+                            });
+                        }
+
+                        if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder')
+                                .find("img")
+                                .attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder')
+                                .find('img')
+                                .data('src');
+
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css(
+                                'background-image',
+                                'url("' + new_image_full_page + '")'
+                            );
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                        }
+                    });
+
+                    $('.switch-sidebar-image input').change(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $input = $(this);
+
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
                             }
 
-                            if ($sidebar_responsive.length != 0) {
-                                $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-                            }
-                        });
-
-                        $('.switch-sidebar-image input').change(function () {
-                            $full_page_background = $('.full-page-background');
-
-                            $input = $(this);
-
-                            if ($input.is(':checked')) {
-                                if ($sidebar_img_container.length != 0) {
-                                    $sidebar_img_container.fadeIn('fast');
-                                    $sidebar.attr('data-image', '#');
-                                }
-
-                                if ($full_page_background.length != 0) {
-                                    $full_page_background.fadeIn('fast');
-                                    $full_page.attr('data-image', '#');
-                                }
-
-                                background_image = true;
-                            } else {
-                                if ($sidebar_img_container.length != 0) {
-                                    $sidebar.removeAttr('data-image');
-                                    $sidebar_img_container.fadeOut('fast');
-                                }
-
-                                if ($full_page_background.length != 0) {
-                                    $full_page.removeAttr('data-image', '#');
-                                    $full_page_background.fadeOut('fast');
-                                }
-
-                                background_image = false;
-                            }
-                        });
-
-                        $('.switch-sidebar-mini input').change(function () {
-                            $body = $('body');
-
-                            $input = $(this);
-
-                            if (md.misc.sidebar_mini_active == true) {
-                                $('body').removeClass('sidebar-mini');
-                                md.misc.sidebar_mini_active = false;
-
-                                $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-                            } else {
-
-                                $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
-                                setTimeout(function () {
-                                    $('body').addClass('sidebar-mini');
-
-                                    md.misc.sidebar_mini_active = true;
-                                }, 300);
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
                             }
 
-                            // we simulate the window Resize so the charts will get updated in realtime.
-                            var simulateWindowResize = setInterval(function () {
-                                window.dispatchEvent(new Event('resize'));
-                            }, 180);
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
 
-                            // we stop the simulation of Window Resize after the animations are completed
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                        }
+                    });
+
+                    $('.switch-sidebar-mini input').change(function () {
+                        $body = $('body');
+
+                        $input = $(this);
+
+                        if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                        } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
                             setTimeout(function () {
-                                clearInterval(simulateWindowResize);
-                            }, 1000);
+                                $('body').addClass('sidebar-mini');
 
-                        });
+                                md.misc.sidebar_mini_active = true;
+                            }, 300);
+                        }
+
+                        // we simulate the window Resize so the charts will get updated in realtime.
+                        var simulateWindowResize = setInterval(function () {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 180);
+
+                        // we stop the simulation of Window Resize after the animations are completed
+                        setTimeout(function () {
+                            clearInterval(simulateWindowResize);
+                        }, 1000);
+
                     });
                 });
-            </script>
-            <script>
-                $(document).ready(function () {
-                    // Javascript method's body can be found in www/js/demos.js
-                    md.initDashboardPageCharts();
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                // Javascript method's body can be found in www/js/demos.js
+                md.initDashboardPageCharts();
 
-                });
-            </script>
-        </body>
+            });
+        </script>
+</body>
 
-    </html>
+</html>

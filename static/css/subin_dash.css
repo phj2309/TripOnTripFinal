@@ -1,38 +1,9 @@
-/*
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.*/
-
-/*     brand Colors              */
-
-.form-control2 {
-    display: inline;
-    width: auto;
-    padding: 0.4375rem 0;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: rgba(0, 0, 0, 0);
-    background-clip: padding-box;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    /*transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;*/
-  }
-
-  .form-control2::-ms-expand {
-    background-color: transparent;
-  }
+.mainview{
+    padding: 0px;
+    margin: 0px;
+    font-size:15px;
+    color:#8C8C8C;
+}
 
 
 
@@ -58,8 +29,13 @@
     box-sizing: border-box;
 }
 
+
+* {
+    font-family: 'Spoqa Han Sans', 'Sans-serif';
+    font-weight: 400;
+}
 html {
-    font-family: sans-serif;
+    font-family: Sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -93,7 +69,9 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fafafa;
+    background-color:#E4E4E4;
+    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    
 }
 
 [tabindex="-1"]:focus {
@@ -2175,24 +2153,10 @@ pre code {
     border: 0;
 }
 
-.form-control2 {
-    display: inline;
-    width: auto;
-    padding: 0.4375rem 0;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: rgba(0, 0, 0, 0);
-    background-clip: padding-box;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    /*transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;*/
-}
+
 
 .form-control {
-    display: inline;
-    width: 100%;
+    width: inherit;
     padding: 0.4375rem 0;
     font-size: 1rem;
     line-height: 1.5;
@@ -2210,9 +2174,6 @@ pre code {
     border: 0;
 }
 
-.form-control2::-ms-expand {
-    background-color: transparent;
-}
 
 .form-control:focus {
     color: #495057;
@@ -3750,7 +3711,7 @@ tbody.collapse.show {
 
 .input-group {
     position: relative;
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
     align-items: stretch;
     width: 100%;
@@ -4231,9 +4192,10 @@ tbody.collapse.show {
     padding-top: 0.3125rem;
     padding-bottom: 0.3125rem;
     margin-right: 1rem;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     line-height: inherit;
     white-space: nowrap;
+    
 }
 
 .navbar-brand:focus,
@@ -14565,21 +14527,14 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .form2 {
+    padding : 8px 10px 8px 10px;
     border: none;
+    background-color: white;
     box-shadow: none;
-    /* font-size: 1.2em; */
-    /* font-weight: bold; */
-    height: 36px;
-    width: 100%;
-    padding-left: 17px;
-    /* display: none !important; */
-    margin-top: 10px;
-    margin-bottom: 20px;
-    float: none !important;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    position: relative;
-
+    height: 10%;
+    width: auto;
+    margin-top : 5%;
+    border-radius : 5px;
 }
 
 .sidebar .sidebar-wrapper .navbar-form {
@@ -14952,6 +14907,10 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     float: right;
     width: calc(100% - 260px);
     transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+
+    background-color:#E4E4E4;
+    background-image: url('../img/back04.png');
+    background-size : cover;
 }
 
 .main-panel > .content {
@@ -16758,7 +16717,7 @@ label {
 }
 
 .card .card-footer .stats {
-    color: #999999;
+    color: black;
 }
 
 .card .card-footer .stats .material-icons {
@@ -17154,7 +17113,7 @@ label {
 
 .card .card-body+.card-footer .stats,
 .card .card-footer .stats {
-    color: #999999;
+    color: black;
     font-size: 12px;
     line-height: 22px;
 }
