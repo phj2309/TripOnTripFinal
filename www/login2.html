@@ -97,76 +97,73 @@
         <link
             href="../static/demo/demo.css"
             rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
     </head>
 
     <body class="">
         <div class="wrapper ">
-            <div class="sidebar" data-color="purple" data-background-color="white">
-                <!-- Tip 1: You can change the color of the sidebar using: data-color="purple |
-                azure | green | orange | danger" Tip 2: you can also add an image using
-                data-image tag -->
-                <div class="logo">
-                    <a class="simple-text logo-normal" href="./>
-                        Trip ON Trip
-                    </a>
+                <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
+                    <div class="logo">
+                        <a class="simple-text logo-normal" href="./">
+                            Trip ON Trip
+                        </a>
+                    </div>
+                    <div class="sidebar-wrapper">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">
+                                    <i class="material-icons">home</i>
+                                    <p>HOME</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="./plan">
+                                    <i class="material-icons">flight_takeoff</i>
+                                    <p>PLAN</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="./expense">
+                                    <i class="material-icons">attach_money</i>
+                                    <p>Expense</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="./favoritePlan">
+                                    <i class="material-icons">favorite</i>
+                                    <p>Favorite Plan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">person</i>
+                                    <p><%= locals.nickname %></p>
+        
+                                    <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                    <a class="dropdown-item" href="./costPage">Profile</a>
+                                    <a class="dropdown-item" href="#">My Plan</a>
+                                    <div class="dropdown-divider"></div>
+                                    <% if(locals.nickname == 'User'){ %>
+                                    <a class="dropdown-item" href="./user/login">Log In</a>
+                                    <% } else { %>
+                                    <a class="dropdown-item" href="./user/logout">Log Out</a>
+                                    <% } %>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="sidebar-wrapper">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./>
-                                <i class="material-icons">home</i>
-                                <p>HOME</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./plan">
-                                <i class="material-icons">flight_takeoff</i>
-                                <p>PLAN</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./expense">
-                                <i class="material-icons">attach_money</i>
-                                <p>Expense</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./favoritePlan">
-                                <i class="material-icons">favorite</i>
-                                <p>Favorite Plan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link"
-                                href="#pablo"
-                                id="navbarDropdownProfile"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="material-icons">person</i>
-                                <p>User</p>
-                                <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-right"
-                                aria-labelledby="navbarDropdownProfile">
-                                <a class="dropdown-item" href="./costPage.html">Profile</a>
-                                <a class="dropdown-item" href="#">Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Log in</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+
             <div class="main-panel">
                 <!-- Navbar -->
                 <nav
                     class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                     <div class="container-fluid">
                         <div class="navbar-wrapper">
-                            <a class="navbar-brand" href="#pablo">SIGN IN & SIGN UP</a>
+                            <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black; font-size:20px;">SIGN IN & SIGN UP</a>
                         </div>
                         <button
                             class="navbar-toggler"
@@ -200,7 +197,7 @@
                                                     <label for="tab-1" class="tab">Sign In</label>
                                                     <input id="tab-2" type="radio" name="tab" class="sign-up" value="signup">
                                                     <label for="tab-2" class="tab">Sign Up</label>
-                                                    <div class="login-form">
+                                                    <div class="login-form" style="margin-top:15px;">
                                                         <!-- 로그인 폼 -->
                                                         <div class="sign-in-htm">
                                                             <div class="group">
@@ -239,12 +236,12 @@
                                                             <div class="foot-lnk">
                                                                 <a href="findPassword">Forgot Password?</a>
                                                             </div>
-                                                            <div class="hr"></div>
 
-                                                            <!-- 구글로그인 -->
+                                                            <!-- 구글로그인 
                                                         
                                                             <div id="my-signin2"></div>
                                                             <span id="name"></span>
+                                                            -->
                                                             <!-- <input
                                                                 type="button"
                                                                 id="loginBtn"
@@ -303,8 +300,6 @@
                                                                 }
                                                                 console.log(test);
                                                             </script>
-
-                                                            <div class="hr"></div>
                                                             <div class="foot-lnk">
                                                                 <label for="tab-1">Already Member?</a>
                                                             </div>

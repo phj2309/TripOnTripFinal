@@ -1,5 +1,6 @@
 const mapper = require('../../DB/mapperController.js');
 var util = require('util');
+
 exports.t = async function (req, res) {
     if (!req.session.userId) {
         res.render("login2.html"); //세션에 없으면 login.html 렌더링
