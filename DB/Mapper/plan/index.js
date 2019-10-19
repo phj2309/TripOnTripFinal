@@ -142,11 +142,11 @@ module.exports = {
 			});
 		});
 	},
-	planList: function() {
+	planList: function(_sf, _ff) {
 		return new Promise(function(resolve, reject) {
-			var selectQuery = 'SELECT * FROM tripontrip_db.plan';
+			var selectQuery = 'SELECT plan_id, title, date_format(startDate, ?) startDate, date_format(finishDate, ?) finishDate FROM tripontrip_db.plan';
 
-			sql.excuteParam(selectQuery).then(function(rows) {
+			sql.excuteParam(selectQuery, [_sf, _ff]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
 
