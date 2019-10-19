@@ -30,14 +30,14 @@
 <body class="">
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white"
-            data-image="../../static/img/sidebar-1.jpg">
+        data-image="../static/img/back02.jpg">
             <div class="logo">
                 <a class="simple-text logo-normal" href="./"> Trip ON Trip </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="./">
+                        <a class="nav-link" href="/index_stack2">
                             <i class="material-icons">home</i>
                             <p>HOME</p>
                         </a>
@@ -54,7 +54,7 @@
                             <p>Expense</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="./favoritePlan">
                             <i class="material-icons">favorite</i>
                             <p>Favorite Plan</p>
@@ -70,7 +70,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                             <a class="dropdown-item" href="./costPage">Profile</a>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="#">My Plan</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="./login">Log In</a>
                         </div>
@@ -83,7 +83,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">Favorite Plan</a>
+                        <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black;">Favorite Plan</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -108,7 +108,7 @@
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-primary" id ="thead_style">
-                                                <th>DEL</th>
+                                                <th>Check</th>
                                                 <th>Contents</th>
                                                 <th>Writers</th>                                    
                                                 <th>Map</th>
@@ -116,73 +116,38 @@
                                             <tbody class = "tbody_style">
                                                 <tr>
                                                     <td>
-                                                        <button type="button" rel="tooltip" title="Remove"
-                                                            class="btn btn-danger btn-link btn-sm" style="float : right; padding: 10px;">
-                                                            <i class="material-icons">delete</i>
-                                                        </button>
+                                                             <div class="form-check">
+                                                                      <label class="form-check-label">
+                                                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                                                        <span class="form-check-sign">
+                                                                          <span class="check"></span>
+                                                                        </span>
+                                                                      </label>
+                                                                    </div>
                                                     </td>
                                                     <td>
                                                         <ul style="list-style: none; padding : 0px;">
-                                                            <li>블루라군 물놀이</li>
-                                                            <li>라오스</li>
-                                                            <li>10:00/12:30</li>
+                                                            <li>자전거 산책, 점심</li>
+                                                            <li>말레이시아</li>
+                                                            <li>09:00~12:00</li>
                                                         </ul>
                                                     </td>
                                                     
-                                                    <td>11_hyeon, soubii_g</td>
+                                                    <td>30under_juu, Zyoon2_da</td>
                                                     <td>
                                                             <button type="button" class="btn btn-white btn-round btn-just-icon btn-add" onClick="location.href= '/map'">
                                                                 <i class='material-icons'>map</i>
                                                             </button>
                                                         </td>
-                                                </tr>
-                                                <tr>
-                                                        <td>
-                                                            <button type="button" rel="tooltip" title="Remove"
-                                                                class="btn btn-danger btn-link btn-sm" style="float : right; padding: 10px;">
-                                                                <i class="material-icons">delete</i>
-                                                            </button>
-                                                        </td>
-                                                        <td>
-                                                            <ul style="list-style: none; padding : 0px;">
-                                                                <li>탄중아루 선셋</li>
-                                                                <li>말레이시아</li>
-                                                                <li>18:30/19:00</li>
-                                                            </ul>
-                                                        </td>
-                                                        
-                                                        <td>30under_juu</td>
-                                                        <td>
-                                                                <button type="button" class="btn btn-white btn-round btn-just-icon btn-add" onClick="location.href= '/map'">
-                                                                    <i class='material-icons'>map</i>
-                                                                </button>
-                                                            </td>
-                                                    </tr>
-                                                    <tr>
-                                                            <td>
-                                                                <button type="button" rel="tooltip" title="Remove"
-                                                                    class="btn btn-danger btn-link btn-sm" style="float : right; padding: 10px;">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <ul style="list-style: none; padding : 0px;">
-                                                                    <li>군산 철길</li>
-                                                                    <li>대한민국</li>
-                                                                    <li>16:00/17:30</li>
-                                                                </ul>
-                                                            </td>
-                                                            
-                                                            <td>gyu_Knee</td>
-                                                            <td>
-                                                                    <button type="button" class="btn btn-white btn-round btn-just-icon btn-add" onClick="location.href= '/map'">
-                                                                        <i class='material-icons'>map</i>
-                                                                    </button>
-                                                                </td>
-                                                        </tr>                                                
+                                                </tr>                                           
                                             </tbody>
                                         </table>
                                     </div>
+                                    <br/>
+                                    <button type="button" class="btn btn-primary" id="detailViewColor2" onclick="location.href= '/detailPlanShow_2_st'">ADD</button>
+
+                                                <button type="button" class="btn btn-primary" id="detailViewColor2">DELETE</button>
+                                                <div class="clearfix"></div>
                                 </div>
                             </div>
                         </div>

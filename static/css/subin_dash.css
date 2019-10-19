@@ -5,8 +5,6 @@
     color:#8C8C8C;
 }
 
-
-
 #detailViewColor .btn-primary {
     background-color: #9796f0;
     width: 25%;
@@ -4194,8 +4192,7 @@ tbody.collapse.show {
     margin-right: 1rem;
     font-size: 1.5rem;
     line-height: inherit;
-    white-space: nowrap;
-    
+    white-space: nowrap; 
 }
 
 .navbar-brand:focus,

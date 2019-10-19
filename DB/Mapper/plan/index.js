@@ -92,12 +92,13 @@ module.exports = {
 		});
 	},
 
-	cost: function (_item, _cost) {
+	cost: function (_item, _p_cost,_cost, _days_detail_id) {
 		return new Promise(function (resolve, reject) {
-			var insertQuery = 'INSERT INTO tripontrip_db.cost (item, cost) VALUES (?, ?)';
+			var insertQuery = 'INSERT INTO tripontrip_db.day_costs (item, p_cost, cost, days_detail_id) VALUES (?, ?, ?, ?)';
 
-			sql.excuteParam(insertQuery, [_item, _cost]).then(function (rows) {
-				resolve(rows);
+			sql.excuteParam(insertQuery, [_item, _p_cost,_cost, _days_detail_id]).then(function (rows) {
+				// resolve(rows);
+				resolve(true);
 			}).catch(function (error) {
 				reject(error);
 			});
@@ -169,5 +170,18 @@ module.exports = {
 				reject(error);
 			});
 		});
+	},
+	findNicknameByPlanId: function(_planId){
+		return new Promise(function(resolve, reject){
+			var selectQuery = 'SELECT nickname FROM tripontrip_db.group WHERE plan_id = ?';
+			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+				else
+					resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		})
 	}
 }

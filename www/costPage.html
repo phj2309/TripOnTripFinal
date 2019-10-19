@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
         crossorigin="anonymous">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Trip On Trip
+  <title>Trip ON Trip
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
     name='viewport' />
@@ -30,7 +30,7 @@
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="#pablo">Trip Cost</a>
+                    <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black;">Trip Cost</a>
                 </div>
                 <button type="button" class="mapButton">
                     <i class="material-icons">
@@ -49,7 +49,7 @@
                   <h4 class="card-title">Enter your trip cost.</h4>
                 </div>
                 <div class="card-body">
-                  <form action="plan/detailPlanShow">
+                  <form action="./plan/costPage/<%= planId %>/add" method="POST">
                     <div class="row">
                         <div class="col-md-3">
                         <div class="form-group">

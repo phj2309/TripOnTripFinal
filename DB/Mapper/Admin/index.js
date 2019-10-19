@@ -40,7 +40,22 @@ module.exports = {
 			});
 		});
 	},
+	//mate들의 nickname 유효성 검사
+	hasNickname: function (_nickname) {
+		return new Promise(async function (resolve, reject) {
+			var selectQuery = 'SELECT EXISTS(SELECT 1 FROM user WHERE nickname = ? LIMIT 1) as count';
 
+			let result = await sql.excuteParam(selectQuery, [_nickname]);
+
+			//.then(function(rows) {
+			if (result[0].count == 0) // 존재하지 않음
+				resolve(false);
+			else {
+				resolve(true);
+			}
+
+		});
+	},
 	// User Register
 	isRegKey: function(_regKey) {
 		return new Promise(function(resolve, reject) {
