@@ -25,12 +25,27 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
+    <script>
+        function tabMove(len, idx) {
+            console.log(len, idx);
+
+            for(var i = 1; i <= len; i++) {
+                if(i == idx)
+                    $('#d' + i).addClass('active').addClass('show');
+                else
+                    $('#d' + i).removeClass('active').removeClass('show');
+            }
+
+           
+        }
+    </script>
 </head>
 <!--data-image="\static\img\sidebar-1.jpg"  -->
+
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="white"
-         data-image="../static/img/back02.jpg">
+        <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
             <div class="logo">
                 <a class="simple-text logo-normal" href="/"> Trip ON Trip </a>
             </div>
@@ -64,15 +79,19 @@
                         <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons">person</i>
-                            <p class="d-lg-none d-md-block">
-                                User Profile
-                            </p>
+                            <p><%= locals.nickname %></p>
+
+                            <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                             <a class="dropdown-item" href="./costPage">Profile</a>
                             <a class="dropdown-item" href="#">My Plan</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./login">Log In</a>
+                            <% if(locals.nickname == 'User'){ %>
+                            <a class="dropdown-item" href="./user/login">Log In</a>
+                            <% } else { %>
+                            <a class="dropdown-item" href="./user/logout">Log Out</a>
+                            <% } %>
                         </div>
                     </li>
                 </ul>
@@ -83,7 +102,8 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black;">DETAILS PLAN</a>
+                        <a class="navbar-brand" href="#pablo"
+                            style="font-weight:bold; color:black; font-size:20px;">DETAILS PLAN</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -109,75 +129,87 @@
                                         <div class="leftbox">
                                             <div class="nav-tabs-navigation">
                                                 <div class="nav-tabs-wrapper">
-                                                  <ul class="nav nav-tabs" id="myTab">
+                                                    <ul class="nav nav-tabs" id="myTab">
                                                         <%  for (var i = 1; i <= day; i++) { %>
                                                         <li class="nav-item">
-                                                            <a class="nav-link aaClick" href="#d<%= i %>" id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
+                                                            <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
                                                         </li>
                                                         <% } %>
-                                                  </ul>
+                                                    </ul>
                                                 </div>
-                                              </div>
+                                            </div>
                                         </div>
                                         <div class="rightbox">
                                             <form action="/plan/detailPlanShow2" method="post">
                                                 <input type="hidden" name="planId" id="planId" value="<%= planId %>">
                                                 <div class="row">
-                                                    <br/><br/><br/>
-                                                    <div class="col-md-3">
-                                                            
-                                                        <h4>Plan List
-                                                            <button type="button" class="btn btn-white btn-round btn-just-icon" id="btnAdd"
-                                                            style = "color: #8C8C8C; margin-left: 10px;" onClick="location.href= '/plan/detailPlanCreate/<%= planId %>/<%= fdayValue %>'">
+                                                    <br /><br /><br />
+                                                    <div class="col-md-3" style="width:100%;">
+                                                        <h4 style="font-weight: bold; display:inline-block;">Plan List</h4>
+                                                        
+                                                            <button type="button"
+                                                                class="btn btn-white btn-round btn-just-icon detailButton"
+                                                                id="btnAdd" style="color: #8C8C8C;"
+                                                                onClick="location.href= '/plan/detailPlanCreate/<%= planId %>/<%= fdayValue %>'">
                                                                 <i class="material-icons">
                                                                     add
                                                                 </i>
                                                             </button>
-                                                            <button type="button" class="btn btn-white btn-round btn-just-icon"
-                                                            style = "color: #8C8C8C;  margin-left: 5px;" onClick="location.href='/favoritePlan'">
+                                                            <button type="button"
+                                                                class="btn btn-white btn-round btn-just-icon detailButton"
+                                                                style="color: #8C8C8C;"
+                                                                onClick="location.href='/favoritePlan'">
                                                                 <i class="material-icons">
                                                                     favorite
                                                                 </i>
                                                             </button>
-                                                                <button type="button" class="btn btn-white btn-round btn-just-icon"
-                                                                onClick="location.href='/plan/costPage/<%= planId %>'"  style="color : #8C8C8C; margin-left: 5px;">
-                                                                    <i class="material-icons">attach_money</i>
-                                                                </button>
-                                                            
-                                                        </h4>
-
+                                                            <button type="button"
+                                                                class="btn btn-white btn-round btn-just-icon detailButton"
+                                                                onClick="location.href='/plan/costPage/<%= planId %>'"
+                                                                style="color : #8C8C8C;">
+                                                                <i class="material-icons">attach_money</i>
+                                                            </button>
                                                         <style>
-                                                            .time{
-                                                                font-size :7pt;
-                                                                margin-left:5px;
+                                                            .time {
+                                                                font-size: 7pt;
+                                                                margin-left: 5px;
                                                             }
                                                         </style>
+
                                                         <div class="tab-content">
-                                                         <% for (var i = 1; i <= day; i++) { %>
-                                                        <div class="tab-pane fade" id="d<%= i %>">
-                                                            <ul class="drag-list">
-                                                                <% if(locals.detailList) { %>
+                                                            <% for (var i = 1; i <= day; i++) { %>
+                                                            <div class="tab-pane" id="d<%= i %>">
+                                                                <ul class="drag-list2">
+                                                                    <% if(locals.detailList) { %>
                                                                     <% for(var j=0; j<detailList.length; j++) { %>
-                                                                        <% if(detailList[j].days == i) { %>
-                                                                <li><span class="title"><%= detailList[j].content %><h10 class="time"><%= detailList[j].startTime %> ~ <%= detailList[j].finishTime %></h10></span><span class="drag-area"></span></li>
-                                                                <%  } } }%>
-                                                            </ul>
-                                                        </div> <% } %>
-                                                    </div>
+                                                                    <% if(detailList[j].days == i) { %>
+                                                                    <li><span class="title"><%= detailList[j].content %>
+                                                                            <h10 class="time">
+                                                                                <%= detailList[j].startTime %> ~
+                                                                                <%= detailList[j].finishTime %></h10>
+                                                                            </span><span class="drag-area"></span></li>
+                                                                    <%  } } }%>
+                                                                </ul>
+                                                            </div> <% } %>
+                                                        </div>
+                                                        
+
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <h4>Review</h4><textarea id="textfield" name="review" rows="5" cols="20"
-                                                                class="form-control"
+                                                            <h4 style="font-weight: bold;">Review</h4><textarea id="textfield" name="review"
+                                                                rows="5" cols="20" class="form-control"
                                                                 style="border:1px solid rgb(196, 196, 196);"><% if(locals.review) { %><%= review %><% } %></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <br />
 
-                                                <button type="button" class="btn btn-primary" id="detailViewColor2">Delete</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    id="detailViewColor2">Delete</button>
 
-                                                <button type="submit" class="btn btn-primary" id="detailViewColor2">Save</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    id="detailViewColor2">Save</button>
                                                 <div class="clearfix"></div>
                                             </form>
                                         </div>
@@ -244,19 +276,16 @@
             $().ready(function () {
 
                 $('li').arrangeable({ dragSelector: '.drag-area' });
-                
+
                 //a태그 클릭하면 폼태그에 있는 값, 리스트 값 다 없어지고 그 태그에 맞는 리스트랑 폼태그 값 가져와야함
                 $('.aaClick').click(function () {
                     var cdayValue = $(this).attr('id');
                     //console.log(cdayValue);
                     var planId = $('#planId').val();
-                    $('#btnAdd').attr('onclick', "location.href= '/plan/detailPlanCreate/"+planId+"/"+cdayValue+"'");
+                    $('#btnAdd').attr('onclick', "location.href= '/plan/detailPlanCreate/" + planId + "/" + cdayValue + "'");
                     $(this).tab('show');
                 });
-                
-                
-               
-                    
+
                 $(document).ready(function () {
                     var jbOffset = $('.jbMenu').offset();
                     $(window).scroll(function () {

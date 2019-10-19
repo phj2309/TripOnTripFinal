@@ -1,3 +1,88 @@
+/**드롭다운 css 시작**/
+.wrap-drop {
+cursor:pointer;
+margin:0 auto;
+position:relative;
+width:30%;
+z-index:3;
+padding: 7px 0px 5px 7px;
+}
+
+.wrap-drop::after {
+border-color:#000000 transparent;
+border-style:solid;
+border-width:10px 10px 0;
+content:"";
+height:100%;
+margin-top:-5px;
+position:absolute;
+right:1rem;
+top:50%;
+width:0;
+}
+
+.wrap-drop .drop {
+display:none;
+left:0;
+list-style:none;
+margin-top:5px;
+opacity:0;
+padding-left:0;
+pointer-events:none;
+position:absolute;
+right:0;
+top:63%;
+z-index:2;
+background-color:#ffffff90;
+border-radius: 5px;
+
+}
+
+.wrap-drop .drop li a {
+color:#4c4c4c;
+display:block;
+padding:7px 0px 7px 7px;
+text-decoration:none;
+
+}
+
+.wrap-drop span {
+color:#000000;
+}
+
+.wrap-drop.active::after {
+border-width:0 10px 10px;
+}
+
+.wrap-drop.active .drop {
+display:block;
+opacity:1;
+pointer-events:auto;
+}
+
+/**드롭다운 css 끝**/
+
+.mapButton{
+    float : right;
+    border : 0px none;
+    background-color: inherit;
+    margin-left : 10px;
+    
+  }
+
+.form2 {
+    padding : 8px 10px 8px 10px;
+    border: none;
+   /* background-color: white;*/
+    box-shadow: none;
+    height: 10%;
+    width: auto;
+    margin-top : 5%;
+    border-radius : 5px;
+}
+
+
+
 .mainview{
     padding: 0px;
     margin: 0px;
@@ -29,11 +114,11 @@
 
 
 * {
-    font-family: 'Spoqa Han Sans', 'Sans-serif';
+    font-family: 'Work Sans', sans-serif;
     font-weight: 400;
 }
 html {
-    font-family: Sans-serif;
+    font-family: 'Work Sans', sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -61,7 +146,7 @@ section {
 
 body {
     margin: 0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -198,7 +283,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: monospace, monospace;
+    font-family: 'Work Sans', sans-serif;
     font-size: 1em;
 }
 
@@ -439,7 +524,7 @@ template {
 }
 
 html {
-    font-family: sans-serif;
+    font-family: 'Work Sans', sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -467,7 +552,7 @@ section {
 
 body {
     margin: 0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -602,7 +687,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: monospace, monospace;
+    font-family: 'Work Sans', sans-serif;
     font-size: 1em;
 }
 
@@ -938,7 +1023,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: 'Work Sans', sans-serif;
 }
 
 code {
@@ -2151,27 +2236,23 @@ pre code {
     border: 0;
 }
 
-
-
 .form-control {
     width: inherit;
     padding: 0.4375rem 0;
     font-size: 1rem;
     line-height: 1.5;
-    color: #495057;
+    color: #000000;
     background-color: rgba(0, 0, 0, 0);
     background-clip: padding-box;
-    border: 1px solid #d2d2d2;
+    border: 1px solid #4C4C4C;
     border-radius: 0;
     box-shadow: none;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-control::-ms-expand {
     background-color: transparent;
     border: 0;
 }
-
 
 .form-control:focus {
     color: #495057;
@@ -2182,7 +2263,7 @@ pre code {
 }
 
 .form-control::placeholder {
-    color: #6c757d;
+    color: #000000;
     opacity: 1;
 }
 
@@ -5655,7 +5736,7 @@ button.close {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -5780,7 +5861,7 @@ button.close {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -11207,7 +11288,7 @@ form {
 }
 
 .form-control::-moz-placeholder {
-    color: #AAAAAA;
+    color: rgb(194, 194, 194);
     font-weight: 400;
     font-size: 14px;
 }
@@ -11219,7 +11300,7 @@ form {
 }
 
 .form-control::-webkit-input-placeholder {
-    color: #AAAAAA;
+    color: #4c4c4c;
     font-weight: 400;
     font-size: 14px;
 }
@@ -11369,7 +11450,7 @@ fieldset[disabled] .switch label:hover {
 
 .form-control,
 .is-focused .form-control {
-    background-image: linear-gradient(to top, #9796f0 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+    background-image: linear-gradient(to top, #000000 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
 }
 
 .form-control:invalid {
@@ -13685,7 +13766,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-weight: 300;
     line-height: 1.5em;
 }
@@ -14523,16 +14604,6 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     display: none !important;
 }
 
-.form2 {
-    padding : 8px 10px 8px 10px;
-    border: none;
-    background-color: white;
-    box-shadow: none;
-    height: 10%;
-    width: auto;
-    margin-top : 5%;
-    border-radius : 5px;
-}
 
 .sidebar .sidebar-wrapper .navbar-form {
     border: none;
@@ -16324,7 +16395,7 @@ legend {
 }
 
 .serif-font {
-    font-family: "Roboto Slab", "Times New Roman", serif;
+    font-family: 'Work Sans', sans-serif;
 }
 
 * {

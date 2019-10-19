@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="../static/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/png" href="../static/img/favicon.png">
+    <link rel="icon" type="image/png" href="../static/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
         Trip ON Trip
@@ -12,8 +12,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="../static/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
@@ -21,79 +19,120 @@
     <link href="../static/demo/demo.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="../static/js/core.js"></script>
-    <script src="../static/js/charts.js"></script>
-    <script src="../static/js/animated.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="https://cdnjs.com/libraries/Chart.js"></script>
-    <script src="https://www.jsdelivr.com/package/npm/chart.js?path=dist"></script>
+   
 
-    <style>
-        #chartdiv {
-            width: 100%;
-            height: 500px;
-        }
-    </style>
+    <script>
+        $(document).ready(function(result) {
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+        
+        var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    options: {},
+    data: {
+        datasets: [{
+            data: [10, 20, 30]
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+            'Red',
+            'Yellow',
+            'Blue'
+        ]
+    }
+
+
+});
+
+        /*
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+
+    // Configuration options go here
+    options: {}
+});*/
+        })
+    </script>
 </head>
-
 <body class="">
-    <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/sidebar-1.jpg">
-            <div class="logo">
-                <a class="simple-text logo-normal" href="./index">
-                    Trip ON Trip
-                </a>
+        <div class="wrapper ">
+            <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
+                <div class="logo">
+                    <a class="simple-text logo-normal" href="/"> Trip ON Trip </a>
+                </div>
+                <div class="sidebar-wrapper">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <i class="material-icons">home</i>
+                                <p>HOME</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/plan">
+                                <i class="material-icons">flight_takeoff</i>
+                                <p>PLAN</p>
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/expense">
+                                <i class="material-icons">attach_money</i>
+                                <p>Expense</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/favoritePlan">
+                                <i class="material-icons">favorite</i>
+                                <p>Favorite Plan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">person</i>
+                                <p><%= locals.nickname %></p>
+    
+                                <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                <a class="dropdown-item" href="./costPage">Profile</a>
+                                <a class="dropdown-item" href="#">My Plan</a>
+                                <div class="dropdown-divider"></div>
+                                <% if(locals.nickname == 'User'){ %>
+                                <a class="dropdown-item" href="./user/login">Log In</a>
+                                <% } else { %>
+                                <a class="dropdown-item" href="./user/logout">Log Out</a>
+                                <% } %>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./index">
-                            <i class="material-icons">home</i>
-                            <p>HOME</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./plan">
-                            <i class="material-icons">flight_takeoff</i>
-                            <p>PLAN</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./tables">
-                            <i class="material-icons">attach_money</i>
-                            <p>Expense</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./typography">
-                            <i class="material-icons">favorite</i>
-                            <p>Favorite Plan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">person</i>
-                            <p class="d-lg-none d-md-block">
-                                User Profile
-                            </p>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                            <a class="dropdown-item" href="./costPage">Profile</a>
-                            <a class="dropdown-item" href="#">My Plan</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./login">Log Out</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">Expense</a>
+                        <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black; font-size:20px;">Expense</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +141,6 @@
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
-
                 </div>
             </nav>
             <!-- End Navbar -->
@@ -115,33 +153,13 @@
                                     <h3 class="card-title">My travel cost</h3>
                                 </div>
                                 <div class="card-body">
-                                    <script>
-                                        var ctx = document.getElementById('myChart').getContext('2d');
-                                        var chart = new Chart(ctx, {
-                                            // The type of chart we want to create
-                                            type: 'line',
+                                    
 
-                                            // The data for our dataset
-                                            data: {
-                                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                                                datasets: [{
-                                                    label: 'My First dataset',
-                                                    backgroundColor: 'rgb(255, 99, 132)',
-                                                    borderColor: 'rgb(255, 99, 132)',
-                                                    data: [0, 10, 5, 2, 20, 30, 45]
-                                                }]
-                                            },
-
-                                            // Configuration options go here
-                                            options: {}
-                                        });
-
-                                    </script>
+                                        <canvas id="myChart"></canvas>
 
 
 
-                                    <canvas id="myChart"></canvas>
-                                    <div id="chartdiv"></div>
+
 
                                 </div>
                             </div>
@@ -200,43 +218,6 @@
         $(document).ready(function () {
             $().ready(function () {
 
-
-                // For a pie chart
-                var myPieChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: data,
-                    options: options
-                });
-
-                // And for a doughnut chart
-                var myDoughnutChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: data,
-                    options: options
-                });
-
-                data = {
-                    datasets: [{
-                        data: [10, 20, 30]
-                    }],
-
-                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: [
-                        'Red',
-                        'Yellow',
-                        'Blue'
-                    ]
-                };
-
-
-
-
-                var travelMate = 1;
-
-                $('#add').click(function () {
-                    $('#add_contents').append("<div class='col-12' id= 'add_contents'><div class='form-group'><label class='bmd-label-floating'>Your Travel Mates</label><input type='text' class='form-control' name='mate[]'></div></div>")
-                    travelMate++;
-                });
 
                 $sidebar = $('.sidebar');
 
@@ -400,7 +381,7 @@
                     // we stop the simulation of Window Resize after the animations are completed
                     setTimeout(function () {
                         clearInterval(simulateWindowResize);
-                    }, 1000);
+                    }, 1000);a
 
                 });
             });

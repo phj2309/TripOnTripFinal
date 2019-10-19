@@ -25,6 +25,7 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
 </head>
 
 <body class="">
@@ -69,7 +70,7 @@
                                 aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="material-icons">person</i>
-                                <p><%= nickname %></p>
+                                <p><%=locals.nickname %></p>
                                 
                                 <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
                             </a>
@@ -79,7 +80,7 @@
                                 <a class="dropdown-item" href="./costPage">Profile</a>
                                 <a class="dropdown-item" href="#">Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <% if(nickname == 'User'){ %>
+                                <% if(locals.nickname == 'User'){ %>
                                     <a class="dropdown-item" href="./user/login">Log In</a>
                                 <% } else { %>
                                     <a class="dropdown-item" href="./user/logout">Log Out</a>
@@ -94,7 +95,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">Favorite Plan</a>
+                        <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black; font-size:20px;">Favorite Plan</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
