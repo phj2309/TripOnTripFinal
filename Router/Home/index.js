@@ -6,9 +6,7 @@ const controller = require('./controller');
 //const adminViewController = require('./AdminView/controller');
 
 
-router.get('/', controller.t);
-
-router.get('/mypage_profile', controller.toProfile);
+router.get('/', controller.toProfile);
 
 router.get('/mypage_plan', controller.toMyPlan);
 
