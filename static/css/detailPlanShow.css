@@ -5,22 +5,83 @@ body {
     -ms-user-select: none;
     user-select: none;
   }
-  
+
+  .detailButton{
+    display: inline-block;
+    padding : 0px;
+    margin: 0px;
+    position: relative;
+    left : 5%;
+  }
+
+  .mapButton{
+    position: relative;    
+    border : 0px none;
+    background-color: inherit; 
+    padding : 0px;
+    margin: 5px 3px 5px 0px;
+    color:#4c4c4c;
+  }
+
   .textarea{
     border : 1px solid;
     border-radius : 20px;
-    border-color: #9796f0;
     background-color: inherit;
+    width: 100%;
+    border:1px solid rgb(196, 196, 196);
   }
 
   .heart {
     font-size: 25px;
     color:#fbc7d4;
+    margin: 5px 0px 5px 3px;
   }
 
+  /** 드래그앤드롭 할때 사용하는 css*/
+  .drag-list2 > li {
+    list-style: none;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(196, 196, 196);
+    border-radius : 10px;
+    margin: 5px 0;
+    font-size: 24px;
+  }
+
+  .drag-list2 .title {
+    display: inline-block;
+    width: 80%;
+    padding: 6px 6px 6px 12px;
+    vertical-align: top;    
+  }
+
+  .drag-list2 .item {
+    display: inline-block;
+    width: 80%;
+    padding: 6px 6px 6px 12px;
+    vertical-align: top;    
+  }
+
+  .drag-list2 .drag-area {
+    display: inline-block;
+  background: #fbc7d4;
+  width: 20%;
+  height : 34px;
+  vertical-align: top;
+  
+  cursor: move;
+  border-radius : 10px;
+}
+/*끝*/
+
+  
+
+/*detailPlanShow_view에서 사용*/
   .drag-list {
+    position: relative;
+    left:0%;
     width: 100%;
     margin: 0 auto;
+    padding: 0px;
   }
 
   .drag-list > li {
@@ -41,21 +102,14 @@ body {
 
   .drag-list .item {
     display: inline-block;
-    width: 80%;
-    padding: 6px 6px 6px 12px;
-    vertical-align: top;    
+    width: 70%;
+    margin: 5px 0px 5px 0px;
+    vertical-align: top;
+    font-weight: bold;
+    color:black;    
   }
 
-  .drag-list .drag-area {
-      display: inline-block;
-    background: #fbc7d4;
-    width: 20%;
-    height : 34px;
-    vertical-align: top;
-    
-    cursor: move;
-    border-radius : 10px;
-  }
+  /*끝*/
 
 
   
