@@ -288,8 +288,8 @@ exports.cost = async function (req, res) {
             nameList[i] = result[i].nickname;
             console.log("현재 nickList : "+nameList);
         }
-        res.render("costPage.html", {count : count, item: item, cost: cost});
-        // res.render("costPage.html", {count : count, item: item, cost: cost, nameList: nameList});
+        // res.render("costPage.html", {count : count, item: item, cost: cost});
+        res.render("costPage.html", {count : count, item: item, cost: cost, nameList: nameList, planId: planId});
         
     }).catch(function(error) {
          console.log(error);
@@ -312,12 +312,23 @@ exports.cost = async function (req, res) {
 },
 exports.costAdd = async function (req, res) {
     //costPage에서 save눌렸을 때 .
+    var nameList = req.body.nameList;
+    var count = req.body.count; //mate들의 수
     var planId = req.params.planId;
     var detailDaysId;
-    var p_cost;
-    var item = req.body.item;
-    var cost;
+    var p_cost = new Array();
+    var items = new Array();
+    var costs = new Array();
 
+
+    
+    // for(var i=0; i<count.length; i++){
+    //     var v = 'checkbox'+count;
+    //     if(req.body.name == 'realItem'){
+    //         items[i] = 
+    //     }
+        
+    // }
 
     mapper.plan.cost(item, p_cost, cost, detailDaysId).then(function (result) {
         console.log(result.insertItem);
@@ -327,9 +338,10 @@ exports.costAdd = async function (req, res) {
                 item = req.body.item[i];
                 cost = req.body.cost[i];
 
-                console.log("성공");
+                console.log("item, cost insert successfuly");
         }
-       // res.render("costPage.html", { item: item, cost: cost });
+    //    res.render("detailPlanShow.html", {  });
+        res.redirect('/detailPlanShow')
     }).catch(function (error) {
         console.log(error);
     });
