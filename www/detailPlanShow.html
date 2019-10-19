@@ -26,6 +26,20 @@
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
+    <script>
+        function tabMove(len, idx) {
+            console.log(len, idx);
+
+            for(var i = 1; i <= len; i++) {
+                if(i == idx)
+                    $('#d' + i).addClass('active').addClass('show');
+                else
+                    $('#d' + i).removeClass('active').removeClass('show');
+            }
+
+           
+        }
+    </script>
 </head>
 <!--data-image="\static\img\sidebar-1.jpg"  -->
 <body class="">
@@ -117,7 +131,7 @@
                                                   <ul class="nav nav-tabs" id="myTab">
                                                         <%  for (var i = 1; i <= day; i++) { %>
                                                         <li class="nav-item">
-                                                            <a class="nav-link aaClick" href="#d<%= i %>" id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
+                                                            <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
                                                         </li>
                                                         <% } %>
                                                   </ul>

@@ -157,7 +157,7 @@ module.exports = {
 			});
 		});
 	},
-	groupList: function(_planId) {
+	groupList: async function(_planId) {
 		return new Promise(function(resolve, reject) {
 			var selectQuery = 'SELECT * FROM tripontrip_db.group WHERE plan_id = ?';
 
@@ -174,6 +174,32 @@ module.exports = {
 	findNicknameByPlanId: function(_planId){
 		return new Promise(function(resolve, reject){
 			var selectQuery = 'SELECT nickname FROM tripontrip_db.group WHERE plan_id = ?';
+			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+				else
+					resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		})
+	},
+	findPlanIdByNickname: function(_nickname){
+		return new Promise(function(resolve, reject){
+			var selectQuery = 'SELECT plan_id FROM tripontrip_db.group WHERE nickname = ?';
+			sql.excuteParam(selectQuery, [_nickname]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+				else
+					resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		})
+	},
+	myPlanList: function(_planId){
+		return new Promise(function(resolve, reject){
+			var selectQuery = 'SELECT * FROM tripontrip_db.plan WHERE plan_id = ?';
 			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);

@@ -55,25 +55,15 @@ exports.insertPlan = async function(req, res)
             console.log("현재 닉" + nickname);
 
             //입력된 mate들(nickname값)이 user테이블에 있는 값인지 확인.
-            await mapper.admin.hasNickname(nickname).then(function (result) {
-                console.log("결과" + result);
-                if (result == true) {
-                    return mapper.plan.insertGroup(planId, nickname);
-                }
-            }).then(function (result) {
-                console.log("insertGroup success : mates" + i);
-
-
-            }).catch(function (error) {
-                console.log(error);
-
-            });
+            let hasNickResult = await mapper.admin.hasNickname(nickname);
+            if (hasNickResult == true) {
+                mapper.plan.insertGroup(planId, nickname);
+            }
         } //for문 끝
-        mapper.plan.insertGroup(planId, loginedUserNick).then(function (result) {
-            console.log("insertGroup success : logined user");
-        }).catch(function (error) {
-            console.log(error);
-        });
+
+
+        return mapper.plan.insertGroup(planId, loginedUserNick);
+    }).then(function(result) {
         console.log("createPlan success");
         req.session.title = title;
         req.session.day = btDay;
@@ -192,29 +182,25 @@ exports.insertDetailPlan = async function(req, res)
     mapper.plan.createDetailPlan(planId, days, content, startTime, finishTime).then(function(result) {
         console.log("createDetailPlan success");
         var days_detail_id = result.insertId;
-        mapper.map.insertPlace(days_detail_id, address, keyword, latitude, longitude).then(function(result) {
-            console.log("insertPlace success");
-            mapper.plan.detailPlanList(planId).then(function(result) {
-                console.log("detailPlanList 호출");
-                var detailList = [];
-                for(var i=0; i<result.length; i++) {
-                    var dayday = result[i].days;
-                    dayday = dayday.substring(3, 4);
-                    console.log(dayday);
-                    var st = result[i].startTime;
-                    st = st.substring(0, 5);
-                    var ft = result[i].finishTime;
-                    ft = ft.substring(0, 5);
-                    detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
-                }
-                res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: days});
-             }).catch(function(error) {
-                 console.log(error);
-             });
-         }).catch(function(error) {
-             console.log(error);
-         });
-        
+        return mapper.map.insertPlace(days_detail_id, address, keyword, latitude, longitude);
+    }).then(function(result) {
+        console.log("insertPlace success");
+        return mapper.plan.detailPlanList(planId);
+    }).then(function(result) {
+        console.log("detailPlanList 호출");
+        var detailList = [];
+        for(var i=0; i<result.length; i++) {
+            var dayday = result[i].days;
+            dayday = dayday.substring(3, 4);
+            console.log(dayday);
+            var st = result[i].startTime;
+            st = st.substring(0, 5);
+            var ft = result[i].finishTime;
+            ft = ft.substring(0, 5);
+            detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+        }
+
+        res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days});
      }).catch(function(error) {
          console.log(error);
          

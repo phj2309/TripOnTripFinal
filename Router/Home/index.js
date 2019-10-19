@@ -8,7 +8,11 @@ const controller = require('./controller');
 
 router.get('/', controller.t);
 
-router.get('/', controller.toProfile);
+router.get('/mypage_profile', controller.toProfile);
+
+router.get('/mypage_plan', controller.toMyPlan);
+
+router.post('/searchPlan', controller.searchPlan);
 
 // USER VIEW
 //router.get('/survey/:key', userViewController.userSwitch);
