@@ -5,11 +5,16 @@ var cheerio = require('cheerio');
 
 exports.toPlan = async function(req, res)
 {
-    res.render("plan.html");
+    //로그인 되어있을 때만 plan페이지 접근 가능
+    if(req.session.userId){
+        res.render("plan.html");
+    }else { 
+        res.redirect('/user/login');
+    }
 }
 exports.insertPlan = async function(req, res)
 {
-    var userId = req.params.userId;
+    var userId = req.session.userId; //현재 로그인 유저
     var title = req.body.title;
     var country = req.body.country;
    //var startDate = req.body.startDate;
@@ -32,46 +37,95 @@ exports.insertPlan = async function(req, res)
     //res.render("detailPlanShow.html");
     var i=0;
     var s = 'p';
-    
-    mapper.plan.createPlan(userId, title, startDate, finishDate, country).then(function(result) {
+
+    //원본수정 from 수빈    
+    var loginedUserNick;
+    mapper.admin.getUserInfoById(userId).then(function (result) {
+        var userAI = result[0].user_id; //로그인 user의 auto increament id 값
+        loginedUserNick = result[0].nickname; //로그인 user의 nickname 값
+
+        return mapper.plan.createPlan(userAI, title, startDate, finishDate, country);
+    }).then(async function (result) {
         console.log(result.insertId);
         var planId = result.insertId;
         req.session.planId = planId;
 
-        for(i=0; i<req.body.mate.length; i++) {
+        for (i = 0; i < req.body.mate.length; i++) {
             var nickname = req.body.mate[i];
+            console.log("현재 닉" + nickname);
 
-            mapper.plan.insertGroup(planId, nickname).then(function(result) {
-                console.log("insertGroup success");
-               //console.log("성공");
-            }).catch(function(error) {
+            //입력된 mate들(nickname값)이 user테이블에 있는 값인지 확인.
+            await mapper.admin.hasNickname(nickname).then(function (result) {
+                console.log("결과" + result);
+                if (result == true) {
+                    return mapper.plan.insertGroup(planId, nickname);
+                }
+            }).then(function (result) {
+                console.log("insertGroup success : mates" + i);
+
+
+            }).catch(function (error) {
                 console.log(error);
-                
+
             });
-            //console.log(nickname);
-        }
-        mapper.user.getNickname(userId).then(function(result) {
-            var nickname = result[0].nickname;
-            mapper.plan.insertGroup(planId, nickname).then(function(result) {
-                console.log("insertGroup success");
-               //console.log("성공");
-            }).catch(function(error) {
-                console.log(error);
-                
-            });
-           //console.log("성공");
-        }).catch(function(error) {
+        } //for문 끝
+        mapper.plan.insertGroup(planId, loginedUserNick).then(function (result) {
+            console.log("insertGroup success : logined user");
+        }).catch(function (error) {
             console.log(error);
-            
         });
         console.log("createPlan success");
         req.session.title = title;
         req.session.day = btDay;
         var fdayValue = 'day1';
-        res.render("detailPlanShow.html", { day : btDay, planId : planId, title: title, fdayValue: fdayValue});
-    }).catch(function(error) {
+        res.render("detailPlanShow.html", { day: btDay, planId: planId, title: title, fdayValue: fdayValue });
+    }).catch(function (error) {
         console.log(error);
     });
+
+
+
+
+    //원본
+    // mapper.plan.createPlan(userId, title, startDate, finishDate, country).then(function(result) {
+    //     console.log(result.insertId);
+    //     var planId = result.insertId;
+    //     req.session.planId = planId;
+
+    //     for(i=0; i<req.body.mate.length; i++) {
+    //         var nickname = req.body.mate[i];
+
+    //         mapper.plan.insertGroup(planId, nickname).then(function(result) {
+    //             console.log("insertGroup success");
+    //            //console.log("성공");
+    //         }).catch(function(error) {
+    //             console.log(error);
+                
+    //         });
+    //         //console.log(nickname);
+    //     }
+    //     mapper.user.getNickname(userId).then(function(result) {
+    //         var nickname = result[0].nickname;
+    //         mapper.plan.insertGroup(planId, nickname).then(function(result) {
+    //             console.log("insertGroup success");
+    //            //console.log("성공");
+    //         }).catch(function(error) {
+    //             console.log(error);
+                
+    //         });
+    //        //console.log("성공");
+    //     }).catch(function(error) {
+    //         console.log(error);
+            
+    //     });
+    //     console.log("createPlan success");
+    //     req.session.title = title;
+    //     req.session.day = btDay;
+    //     var fdayValue = 'day1';
+    //     res.render("detailPlanShow.html", { day : btDay, planId : planId, title: title, fdayValue: fdayValue});
+    // }).catch(function(error) {
+    //     console.log(error);
+    // });
 
 }
 
@@ -191,18 +245,6 @@ exports.insertReview = async function (req, res) {
          
      });
 },
-exports.cost_test = async function (req, res) {
-    var planId = req.params.planId;
-    
-    mapper.plan.groupCount(planId).then(function(result) {
-        var count = result[0].count;
-        console.log("group count : "+count);
-        res.render("costPage.html", {count : count});
-     }).catch(function(error) {
-         console.log(error);
-         
-     });
-},
 
 
 exports.cost = async function (req, res) {
@@ -232,7 +274,52 @@ exports.cost = async function (req, res) {
         }
     });
 
-    mapper.plan.cost(item, cost).then(function (result) {
+
+    var planId = req.params.planId;
+    var count = 0;
+    mapper.plan.groupCount(planId).then(function(result) {
+        count = result[0].count;
+        console.log("group count : "+count);
+        return mapper.plan.findNicknameByPlanId(planId);
+     }).then(function(result){
+        var nameList = new Array();  //planid가 같은 유저들의 nickname배열 정의
+        
+        for(var i=0; i < result.length; i++){
+            nameList[i] = result[i].nickname;
+            console.log("현재 nickList : "+nameList);
+        }
+        res.render("costPage.html", {count : count, item: item, cost: cost});
+        // res.render("costPage.html", {count : count, item: item, cost: cost, nameList: nameList});
+        
+    }).catch(function(error) {
+         console.log(error);
+         
+     });
+
+
+
+
+    //원본
+    // mapper.plan.groupCount(planId).then(function(result) {
+    //     var count = result[0].count;
+    //     console.log("group count : "+count);
+    //     res.render("costPage.html", {count : count, item: item, cost: cost});
+    //  }).catch(function(error) {
+    //      console.log(error);
+         
+    //  });
+
+},
+exports.costAdd = async function (req, res) {
+    //costPage에서 save눌렸을 때 .
+    var planId = req.params.planId;
+    var detailDaysId;
+    var p_cost;
+    var item = req.body.item;
+    var cost;
+
+
+    mapper.plan.cost(item, p_cost, cost, detailDaysId).then(function (result) {
         console.log(result.insertItem);
 
         for (i = 0; i < req.body.cost.length; i++) {
@@ -246,16 +333,4 @@ exports.cost = async function (req, res) {
     }).catch(function (error) {
         console.log(error);
     });
-
-    var planId = req.params.planId;
-
-    mapper.plan.groupCount(planId).then(function(result) {
-        var count = result[0].count;
-        console.log("group count : "+count);
-        res.render("costPage.html", {count : count, item: item, cost: cost});
-     }).catch(function(error) {
-         console.log(error);
-         
-     });
-
 }

@@ -1,4 +1,3 @@
-@font-face { font-family: 'BBTreeGL'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff') format('woff'); font-weight: normal; font-style: normal; }
 *,
 :after,
 :before {
@@ -44,6 +43,7 @@ a {
     transform: rotateY(180deg);
     backface-visibility: hidden;
     transition: all 0.4s linear;
+    height: 100%;
 }
 .login-form .group .check,
 .login-html .sign-in,
@@ -167,5 +167,5 @@ a {
 .label-text{
     font-size: 13px;
     color: #424242;
-    font-family: 'BBTreeGL';
+    font-family: 'Work Sans', sans-serif;
 }

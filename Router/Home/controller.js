@@ -1,5 +1,11 @@
 const mapper = require('../../DB/mapperController.js');
 var util = require('util');
+
+exports.toProfile = async function(req, res)
+{
+    res.render("myPage_profile.html");
+}
+
 exports.t = async function (req, res) {
 	//var keyword="";
 	//로그인 여부 판단

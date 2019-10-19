@@ -21,17 +21,14 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../static/demo/demo.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
 </head>
 
 <body class="">
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white"
-         data-image="../static/img/sidebar-1.jpg">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-          Tip 2: you can also add an image using data-image tag
-      -->
+         data-image="../static/img/back02.jpg">
+        
         <div class="logo">
             <a class="simple-text logo-normal" href="/">
                 Trip ON Trip
@@ -45,7 +42,7 @@
                         <p>HOME</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item active">
                     <a class="nav-link" href="/plan">
                         <i class="material-icons">flight_takeoff</i>
                         <p>PLAN</p>
@@ -64,21 +61,24 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#pablo" id="navbarDropdownProfile"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">person</i>
-                        <p class="d-lg-none d-md-block">
-                            User Profile
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right"
-                         aria-labelledby="navbarDropdownProfile">
-                        <a class="dropdown-item" href="./costPage">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="./login">Log In</a>
-                    </div>
-                </li>
+                  <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <i class="material-icons">person</i>
+                      <p><%= locals.nickname %></p>
+
+                      <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                      <a class="dropdown-item" href="./costPage">Profile</a>
+                      <a class="dropdown-item" href="#">My Plan</a>
+                      <div class="dropdown-divider"></div>
+                      <% if(locals.nickname == 'User'){ %>
+                      <a class="dropdown-item" href="./user/login">Log In</a>
+                      <% } else { %>
+                      <a class="dropdown-item" href="./user/logout">Log Out</a>
+                      <% } %>
+                  </div>
+              </li>
             </ul>
         </div>
     </div>
@@ -87,7 +87,7 @@
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <div class="navbar-brand" style="font-style:bold; color:black;">PLAN</div>
+                    <div class="navbar-brand" style="font-weight:bold; color:black; font-size:20px;">PLAN</div>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         aria-controls="navigation-index" aria-expanded="false"
@@ -127,7 +127,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Start Date &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                                                <label>Start Date </label>
+                                                <div class="dateStyle">
                                                 <select name="sYear" id="sYear" class="form-control2">
                                                     <option value="2019">2019</option>
                                                     <option value="2020">2020</option>
@@ -153,12 +154,13 @@
                                                         }
                                                     </script>
                                                 </select> 일
-
+                                              </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Finish Date &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                                                <label>Finish Date</label>
+                                                <div class="dateStyle2">
                                                 <select name="fYear" id="fYear" class="form-control2">
                                                     <option value="2019">2019</option>
                                                     <option value="2020">2020</option>
@@ -184,6 +186,7 @@
                                                         }
                                                     </script>
                                                 </select> 일
+                                              </div>
                                             </div>
                                         </div>
 
