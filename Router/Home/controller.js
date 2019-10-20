@@ -4,8 +4,35 @@ var util = require('util');
 
 exports.toMyPlan = async function(req, res)
 {
-	var userId = req.session.userId;
-    res.render("myPage_plan.html");
+	var nickname;
+	if (req.session.userId) {
+		var userId = req.session.userId;
+		let findResult = await mapper.admin.findNicknameById(userId);
+
+		nickname = findResult[0].nickname;
+		var planList = [];
+		let planIdList = await mapper.plan.findPlanIdByNickname(nickname);
+		var sf = '%Y-%m-%d';
+		var ff = '%Y-%m-%d';
+		//console.log('planIdList: '+ planIdList);
+		for(var i=0; i<planIdList.length; i++) {
+			var planId = planIdList[i].plan_id;
+			//console.log('planId: '+planId);
+			var plans = await mapper.plan.planListById(sf, ff, planId);
+
+			let groupListResult = await mapper.plan.groupList(planId); 
+			//console.log('groupListResult : '+groupListResult);
+			var groupList = [];
+			for(var j=0; j<groupListResult.length; j++) {
+				groupList[j] = groupListResult[j].nickname;
+			}
+			planList.push({planId: planId, title: plans[0].title, country: plans[0].country, startDate: plans[0].startDate, finishDate: plans[0].finishDate, group: groupList});
+		}
+
+		res.render("myPage_plan.html", {planList: planList});
+	} else {
+		res.redirect('/user/login');
+	}
 }
 
 exports.toProfile = async function(req, res)
@@ -45,16 +72,16 @@ exports.planView = async function(req, res)
 		var ft = detailPlanList[i].finishTime;
 		ft = ft.substring(0, 5);
 		detailList.push({days: dayday, content: detailPlanList[i].content, startTime: st, finishTime: ft})
-		if(reviewListResult) {
-			var d = reviewListResult[i].days;
+	}
+	if (reviewListResult) {
+		for (var j = 0; j < reviewListResult.length; j++) {
+			var d = reviewListResult[j].days;
 			d = d.substring(3, 4);
-			reviewList.push({days: d, review: reviewListResult[i].comment})
+			reviewList.push({ days: d, review: reviewListResult[j].comment })
 		}
-	}
-	if(reviewListResult) {
-		res.render("detailPlanShow_view.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList});
-	}
-	res.render("detailPlanShow_view.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: 'day1'});
+		res.render("detailPlanShow_view.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList});
+	} else
+		res.render("detailPlanShow_view.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1'});
     //res.render("detailPlanShow_view.html");
 }
 

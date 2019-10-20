@@ -182,50 +182,44 @@
                                                     <!-- 리스트 폼 -->
                                                     <div class="sign-up-htm"><br />
                                                         <div class="table-responsive">
-
-
                                                             <table class="table">
                                                                 <thead class="text-primary" id="thead_style">
                                                                     <th>Modify</th>
                                                                     <th>Contents</th>
                                                                 </thead>
                                                                 <tbody class="tbody_style">
+                                                                    <% if(locals.planList) { %>
+                                                                        <% for(var i=0; i<planList.length; i++) { %>
                                                                     <tr>
                                                                         <td>
-                                                                            <ul
-                                                                                style="list-style: none; padding : 0px;">
+                                                                            <ul style="list-style: none; padding : 0px;">
                                                                                 <li>
-                                                                                    <button type="button" rel="tooltip"
-                                                                                        title="Edit"
-                                                                                        class="btn btn-primary btn-link btn-sm">
-                                                                                        <i
-                                                                                            class="material-icons">edit</i>
+                                                                                    <button type="button" rel="tooltip" onclick="location.href='/plan/modify/<%= planList[i].planId %>'" title="Edit" class="btn btn-primary btn-link btn-sm">
+                                                                                        <i class="material-icons">edit</i>
                                                                                     </button>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <button type="button" rel="tooltip"
-                                                                                        title="Remove"
-                                                                                        class="btn btn-danger btn-link btn-sm">
-                                                                                        <i
-                                                                                            class="material-icons">delete</i>
+                                                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                                                                                        <i class="material-icons">delete</i>
                                                                                     </button>
-
                                                                                 </li>
-
                                                                             </ul>
-
                                                                         </td>
                                                                         <td>
-                                                                            <ul
-                                                                                style="list-style: none; padding : 0px;">
-                                                                                <li>글티 17 라오스 탐방기</li>
-                                                                                <li>라오스</li>
-                                                                                <li>11_hyeon, soubii_g</li>
-                                                                                <li>2018-8-19 ~ 2018-8-23</li>
+                                                                            <ul style="list-style: none; padding : 0px;">
+                                                                                <li><%= planList[i].title %></li>
+                                                                                <li><%= planList[i].country %></li>
+                                                                                <li><% for(var j=0; j<planList[i].group.length; j++) { %>
+                                                                                        <% if(j == planList[i].group.length-1) {%>
+                                                                                        <%= planList[i].group[j] %>
+                                                                                        <% }else{ %>
+                                                                                        <%= planList[i].group[j] %>, 
+                                                                                        <% } } %></li>
+                                                                                <li><%= planList[i].startDate %> ~ <%= planList[i].finishDate %></li>
                                                                             </ul>
                                                                         </td>
                                                                     </tr>
-                                                                  
+                                                                    <% } } %>
                                                                 </tbody>
                                                             </table>
                                                         </div>
