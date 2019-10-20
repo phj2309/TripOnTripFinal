@@ -11,7 +11,7 @@ exports.toPlan = async function(req, res)
     }else { 
         res.redirect('/user/login');
     }
-}
+},
 exports.insertPlan = async function(req, res)
 {
     var userId = req.session.userId; //현재 로그인 유저
@@ -37,14 +37,13 @@ exports.insertPlan = async function(req, res)
     //res.render("detailPlanShow.html");
     var i=0;
     var s = 'p';
-
     //원본수정 from 수빈    
     var loginedUserNick;
     var planId;
     mapper.admin.getUserInfoById(userId).then(function (result) {
         var userAI = result[0].user_id; //로그인 user의 auto increament id 값
         loginedUserNick = result[0].nickname; //로그인 user의 nickname 값
-
+        
         return mapper.plan.createPlan(userAI, title, startDate, finishDate, country);
     }).then(async function (result) {
         console.log(result.insertId);
@@ -69,7 +68,8 @@ exports.insertPlan = async function(req, res)
         req.session.title = title;
         req.session.day = btDay;
         var fdayValue = 'day1';
-        res.render("detailPlanShow.html", { day: btDay, planId: planId, title: title, fdayValue: fdayValue });
+
+        res.render("detailPlanShow.html", { day: btDay, planId: planId, title: title, fdayValue: fdayValue, flag:'i' });
     }).catch(function (error) {
         console.log(error);
     });
@@ -133,6 +133,49 @@ exports.showToCreate = async function(req, res)
     content: content, sHour: sHour, sMin: sMin, fHour: fHour, fMin:fMin});
 }
 
+exports.planModifyView = async function(req, res)
+{
+    var flag = 'm';
+    var planId = req.params.planId;
+    var sf = '%Y-%m-%d';
+	var ff = '%Y-%m-%d';
+    let plans = await mapper.plan.planListById(sf, ff, planId);
+    var title = plans[0].title;
+    var startDate = plans[0].startDate;
+	var finishDate = plans[0].finishDate;
+	var v1 = startDate.split("-");
+	var v2 = finishDate.split("-");
+
+	var a1 = new Date(v1[0],v1[1],v1[2]).getTime();
+	var a2=new Date(v2[0],v2[1],v2[2]).getTime();
+
+    var day = (a2-a1)/(1000*60*60*24) +1;
+    
+    let detailPlanList = await mapper.plan.detailPlanList(planId);
+	var detailList = [];
+	var reviewList = [];
+	let reviewListResult = await mapper.plan.getReviewList(planId);
+	for(var i=0; i<detailPlanList.length; i++) {
+		var dayday = detailPlanList[i].days;
+		dayday = dayday.substring(3, 4);
+		console.log(dayday);
+		var st = detailPlanList[i].startTime;
+		st = st.substring(0, 5);
+		var ft = detailPlanList[i].finishTime;
+		ft = ft.substring(0, 5);
+		detailList.push({days: dayday, content: detailPlanList[i].content, startTime: st, finishTime: ft})
+	}
+	if (reviewListResult) {
+		for (var j = 0; j < reviewListResult.length; j++) {
+			var d = reviewListResult[j].days;
+			d = d.substring(3, 4);
+			reviewList.push({ days: d, review: reviewListResult[j].comment })
+		}
+		res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList, flag:flag});
+	} else
+		res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', flag:flag});
+}
+
 exports.mapSubmit = async function(req, res)
 {
     var lat = req.body.lat;
@@ -158,8 +201,9 @@ exports.insertDetailPlan = async function(req, res)
 {
     var latitude = req.body.lat;
     var longitude = req.body.lon;
-    var address = req.body.addressValue;
-    var keyword = req.body.address;
+    var addressValue = req.body.addressValue;
+    var keyword = req.body.place;
+    console.log('keyword: '+keyword);
     var planId = req.session.planId;
     var content = req.body.content;
     var sHour = req.body.sHour;
@@ -183,13 +227,15 @@ exports.insertDetailPlan = async function(req, res)
     mapper.plan.createDetailPlan(planId, days, content, startTime, finishTime).then(function(result) {
         console.log("createDetailPlan success");
         var days_detail_id = result.insertId;
-        return mapper.map.insertPlace(days_detail_id, address, keyword, latitude, longitude);
+        return mapper.map.insertPlace(days_detail_id, addressValue, keyword, latitude, longitude);
     }).then(function(result) {
         console.log("insertPlace success");
         return mapper.plan.detailPlanList(planId);
-    }).then(function(result) {
+    }).then(async function(result) {
         console.log("detailPlanList 호출");
         var detailList = [];
+        var reviewList = [];
+        let reviewListResult = await mapper.plan.getReviewList(planId);
         for(var i=0; i<result.length; i++) {
             var dayday = result[i].days;
             dayday = dayday.substring(3, 4);
@@ -199,9 +245,18 @@ exports.insertDetailPlan = async function(req, res)
             var ft = result[i].finishTime;
             ft = ft.substring(0, 5);
             detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+            console.log('detailList: '+detailList);
         }
-
-        res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days});
+        if (reviewListResult) {
+            for (var j = 0; j < reviewListResult.length; j++) {
+                var d = reviewListResult[j].days;
+                d = d.substring(3, 4);
+                reviewList.push({ days: d, review: reviewListResult[j].comment })
+            }
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: days, reviewList: reviewList, flag: 'i'});
+        } else
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: days, flag:'i'});
+        
      }).catch(function(error) {
          console.log(error);
          
@@ -216,21 +271,48 @@ exports.insertReview = async function (req, res) {
     var day = req.session.day;
     var planId = req.session.planId;
     
-    mapper.plan.insertReview(dayValue, comment).then(function(result) {
-        mapper.plan.detailPlanList(planId, dayValue).then(function(result) {
-            console.log("detailPlanList 호출");
-            var detailList = new Array();
-            for(var i=0; i<result.length; i++) {
-                detailList[i] = result[i].content;
+    mapper.plan.insertReview(dayValue, comment, planId).then(function(result) {
+        return mapper.plan.detailPlanList(planId);
+    }).then(async function(result){
+        console.log("detailPlanList 호출");
+        var detailList = [];
+        var reviewList = [];
+        let reviewListResult = await mapper.plan.getReviewList(planId);
+        for(var i=0; i<result.length; i++) {
+            var dayday = result[i].days;
+            dayday = dayday.substring(3, 4);
+            console.log(dayday);
+            var st = result[i].startTime;
+            st = st.substring(0, 5);
+            var ft = result[i].finishTime;
+            ft = ft.substring(0, 5);
+    
+           detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+        }
+        if (reviewListResult) {
+            for (var j = 0; j < reviewListResult.length; j++) {
+                var d = reviewListResult[j].days;
+                d = d.substring(3, 4);
+                reviewList.push({ days: d, review: reviewListResult[j].comment })
             }
-            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: dayValue, review: comment });
-         }).catch(function(error) {
-             console.log(error);
-         });
-     }).catch(function(error) {
-         console.log(error);
-         
-     });
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList, flag:'i'});
+        } else
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', flag:'i'});
+    }).catch(function(error) {
+        console.log(error);
+        
+    });
+        // mapper.plan.detailPlanList(planId, dayValue).then(function(result) {
+        //     console.log("detailPlanList 호출");
+        //     var detailList = new Array();
+        //     for(var i=0; i<result.length; i++) {
+        //         detailList[i] = result[i].content;
+        //     }
+        //     res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: dayValue, review: comment });
+        //  }).catch(function(error) {
+        //      console.log(error);
+        //  });
+     
 },
 
 

@@ -35,15 +35,19 @@ module.exports = {
 			});
 		});
 	},
-	searchPlanByTitle: function(_Keyword) {
+	searchPlanByTitle: function(_sf, _ff, _Keyword) {
 		return new Promise(function(resolve, reject) {
-			var selectQuery = 'SELECT * FROM tripontrip_db.plan WHERE title LIKE "%?%"';
+			var selectQuery = 'SELECT plan_id, title, date_format(startDate, ?) startDate, date_format(finishDate, ?) finishDate FROM tripontrip_db.plan WHERE title LIKE "%"?"%"';
 
-			sql.excuteParam(selectQuery, [_Keyword]).then(function(rows) {
-				if(rows.length == 0)
+			sql.excuteParam(selectQuery, [_sf, _ff, _Keyword]).then(function(rows) {
+				//resolve(rows);
+				console.log(rows);
+				if(rows.length == 0) {
 					resolve(null);
-
-				resolve(rows);
+				}
+				else {
+					resolve(rows);
+				}
 			}).catch(function(error) {
 				reject(error);
 			});
@@ -65,9 +69,9 @@ module.exports = {
 	},
 	searchPlanByPlace: function(_Keyword) {
 		return new Promise(function(resolve, reject) {
-			var selectQuery = 'SELECT * FROM tripontrip_db.place WHERE address LIKE "%?%"';
+			var selectQuery = 'SELECT days_detail_id FROM tripontrip_db.place WHERE address LIKE "%"?"%" or keyword LIKE "%"?"%"';
 
-			sql.excuteParam(selectQuery, [_Keyword]).then(function(rows) {
+			sql.excuteParam(selectQuery, [_Keyword, _Keyword]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
 
@@ -77,11 +81,11 @@ module.exports = {
 			});
 		});
 	},
-	searchPlanByPlaceKeyword: function(_Keyword) {
+	searchPlanByCountry: function(_sf, _ff, _Keyword) {
 		return new Promise(function(resolve, reject) {
-			var selectQuery = 'SELECT * FROM tripontrip_db.place WHERE keyword LIKE "%?%"';
+			var selectQuery = 'SELECT plan_id, title, date_format(startDate, ?) startDate, date_format(finishDate, ?) finishDate FROM tripontrip_db.plan WHERE country LIKE "%"?"%"';
 
-			sql.excuteParam(selectQuery, [_Keyword]).then(function(rows) {
+			sql.excuteParam(selectQuery, [_sf, _ff, _Keyword]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
 
@@ -144,12 +148,40 @@ module.exports = {
 			});
 		});
 	},
-	insertReview: function(_days,_comment) {
-        return new Promise(function(resolve, reject) {
-			var insertQuery = 'INSERT INTO tripontrip_db.review (days, comment) VALUES (?, ?)';
+	getPlanIdList: function(_daysDetailId) {
+		return new Promise(function(resolve, reject) {
+			var selectQuery = 'SELECT DISTINCT plan_id FROM tripontrip_db.days_detail WHERE days_detail_id = ?';
 
-			sql.excuteParam(insertQuery, [_days, _comment]).then(function(rows) {
+			sql.excuteParam(selectQuery, [_daysDetailId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+
+				resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		});
+	},
+	insertReview: function(_days,_comment, _planId) {
+        return new Promise(function(resolve, reject) {
+			var insertQuery = 'INSERT INTO tripontrip_db.review (days, comment, plan_id) VALUES (?, ?, ?)';
+
+			sql.excuteParam(insertQuery, [_days, _comment, _planId]).then(function(rows) {
 				resolve(true);
+			}).catch(function(error) {
+				reject(error);
+			});
+		});
+	},
+	getReviewList: function(_planId) {
+		return new Promise(function(resolve, reject) {
+			var selectQuery = 'SELECT * FROM tripontrip_db.review WHERE plan_id = ?';
+
+			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+
+				resolve(rows);
 			}).catch(function(error) {
 				reject(error);
 			});
@@ -209,10 +241,10 @@ module.exports = {
 			});
 		})
 	},
-	myPlanList: function(_planId){
+	planListById: function(_sf, _ff, _planId){
 		return new Promise(function(resolve, reject){
-			var selectQuery = 'SELECT * FROM tripontrip_db.plan WHERE plan_id = ?';
-			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+			var selectQuery = 'SELECT title, country, date_format(startDate, ?) startDate, date_format(finishDate, ?) finishDate FROM tripontrip_db.plan WHERE plan_id = ?';
+			sql.excuteParam(selectQuery, [_sf, _ff, _planId]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
 				else

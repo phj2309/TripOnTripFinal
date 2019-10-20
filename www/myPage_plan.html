@@ -24,40 +24,43 @@
     <!-- 로그인/회원가입 페이지 css -->
     <link href="../static/css/myPage_plan.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
+    <script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyBpMRBJl2IuZHLNVcgb8ptTDea2rlF-sAg"
+        type="text/javascript"></script>
+
+
 </head>
 
 <body class="">
     <div class="wrapper ">
 
-        <div class="sidebar" data-color="purple" data-background-color="white"
-         data-image="../static/img/back02.jpg">
+        <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
             <div class="logo">
-                <a class="simple-text logo-normal" href="./">
+                <a class="simple-text logo-normal" href="/">
                     Trip ON Trip
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="./">
+                        <a class="nav-link" href="/">
                             <i class="material-icons">home</i>
                             <p>HOME</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./plan">
+                        <a class="nav-link" href="/plan">
                             <i class="material-icons">flight_takeoff</i>
                             <p>PLAN</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./expense">
+                        <a class="nav-link" href="/expense">
                             <i class="material-icons">attach_money</i>
                             <p>Expense</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./favoritePlan">
+                        <a class="nav-link" href="/favoritePlan">
                             <i class="material-icons">favorite</i>
                             <p>Favorite Plan</p>
                         </a>
@@ -71,13 +74,13 @@
                             <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-right active" aria-labelledby="navbarDropdownProfile">
-                            <a class="dropdown-item" href="./costPage">Profile</a>
-                            <a class="dropdown-item" href="#">My Plan</a>
+                            <a class="dropdown-item" href="/myPage_profile">Profile</a>
+                            <a class="dropdown-item" href="/myPage_plan">My Plan</a>
                             <div class="dropdown-divider"></div>
                             <% if(locals.nickname == 'User'){ %>
-                            <a class="dropdown-item" href="./user/login">Log In</a>
+                            <a class="dropdown-item" href="/user/login">Log In</a>
                             <% } else { %>
-                            <a class="dropdown-item" href="./user/logout">Log Out</a>
+                            <a class="dropdown-item" href="/user/logout">Log Out</a>
                             <% } %>
                         </div>
                     </li>
@@ -91,7 +94,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black; font-size:20px;" >My Plan</a>
+                        <a class="navbar-brand" href="#pablo" style="font-weight:bold; color:black; font-size:20px;">My Plan</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -128,103 +131,95 @@
 
                                                 <div class="login-form">
                                                     <!-- 지도 폼 -->
-                                                    <div class="sign-in-htm">
-                                                        <div id="map"></div>
+                                                    <div class="sign-in-htm" style="height:inherit;">
+                                                        <div id="map" style="width: 100%; height:100%;"></div>
                                                     </div>
+
+                                                    <script type="text/javascript">
+
+                                                            var locations = [
+                                                                ['명동', 37.563576, 126.983431],
+                                                                ['가로수길', 37.520300, 127.023008],
+                                                                ['광화문', 37.575268, 126.976896],
+                                                                ['남산', 37.550925, 126.990945],
+                                                                ['이태원', 37.540223, 126.994005]
+                                                            ];
+
+                                                            var map = new google.maps.Map(document.getElementById('map'), {
+                                                                zoom: 1,
+                                                                center: new google.maps.LatLng(37.549012, 126.988546),
+                                                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                            });
+
+                                                            var infowindow = new google.maps.InfoWindow();
+
+                                                            var marker, i;
+                                                            for(i = 0; i<locations.length; i++) {
+                                                                marker = new google.maps.Marker({
+                                                                    id: i,
+                                                                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                                                                    map: map
+                                                                });
+
+                                                        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                                            return function () {
+                                                                infowindow.setContent(locations[i][0]);
+                                                                infowindow.open(map, marker);
+                                                            }
+                                                        })(marker, i));
+                                                        if (marker) {
+                                                            marker.addListener('click', function () {
+                                                                map.setZoom(15);
+                                                                map.setCenter(this.getPosition());
+                                                            });
+                                                        }
+                                                        }
+
+                                                    </script>
+
+
 
                                                     <!-- 리스트 폼 -->
                                                     <div class="sign-up-htm"><br />
                                                         <div class="table-responsive">
-
-
                                                             <table class="table">
                                                                 <thead class="text-primary" id="thead_style">
                                                                     <th>Modify</th>
                                                                     <th>Contents</th>
-                                                                    <th>Map</th>
                                                                 </thead>
                                                                 <tbody class="tbody_style">
+                                                                    <% if(locals.planList) { %>
+                                                                        <% for(var i=0; i<planList.length; i++) { %>
                                                                     <tr>
                                                                         <td>
                                                                             <ul style="list-style: none; padding : 0px;">
                                                                                 <li>
-                                                                                    <button type="button" rel="tooltip"
-                                                                                        title="Edit"
-                                                                                        class="btn btn-primary btn-link btn-sm">
-                                                                                        <i
-                                                                                            class="material-icons">edit</i>
+                                                                                    <button type="button" rel="tooltip" onclick="location.href='/plan/modify/<%= planList[i].planId %>'" title="Edit" class="btn btn-primary btn-link btn-sm">
+                                                                                        <i class="material-icons">edit</i>
                                                                                     </button>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <button type="button" rel="tooltip"
-                                                                                        title="Remove"
-                                                                                        class="btn btn-danger btn-link btn-sm">
-                                                                                        <i
-                                                                                            class="material-icons">delete</i>
+                                                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                                                                                        <i class="material-icons">delete</i>
                                                                                     </button>
-
                                                                                 </li>
-                                                                            
                                                                             </ul>
-
                                                                         </td>
                                                                         <td>
                                                                             <ul style="list-style: none; padding : 0px;">
-                                                                                <li>글티 17 라오스 탐방기</li>
-                                                                                <li>라오스</li>
-                                                                                <li>11_hyeon, soubii_g</li>
-                                                                                <li>2018-8-19 ~ 2018-8-23</li>
+                                                                                <li><%= planList[i].title %></li>
+                                                                                <li><%= planList[i].country %></li>
+                                                                                <li><% for(var j=0; j<planList[i].group.length; j++) { %>
+                                                                                        <% if(j == planList[i].group.length-1) {%>
+                                                                                        <%= planList[i].group[j] %>
+                                                                                        <% }else{ %>
+                                                                                        <%= planList[i].group[j] %>, 
+                                                                                        <% } } %></li>
+                                                                                <li><%= planList[i].startDate %> ~ <%= planList[i].finishDate %></li>
                                                                             </ul>
-                                                                        </td>
-                                                                        <td>
-                                                                            <button type="button"
-                                                                                class="btn btn-white btn-round btn-just-icon btn-add"
-                                                                                onClick="location.href= '/map'">
-                                                                                <i class='material-icons'>map</i>
-                                                                            </button>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <ul style="list-style: none; padding : 0px;">
-                                                                                <li>
-                                                                                    <button type="button" rel="tooltip"
-                                                                                        title="Edit"
-                                                                                        class="btn btn-primary btn-link btn-sm">
-                                                                                        <i
-                                                                                            class="material-icons">edit</i>
-                                                                                    </button>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <button type="button" rel="tooltip"
-                                                                                        title="Remove"
-                                                                                        class="btn btn-danger btn-link btn-sm">
-                                                                                        <i
-                                                                                            class="material-icons">delete</i>
-                                                                                    </button>
-
-                                                                                </li>
-                                                                            
-                                                                            </ul>
-                                                                        </td>
-                                                                        <td>
-                                                                            <ul
-                                                                                style="list-style: none; padding : 0px;">
-                                                                                <li>지유니네 놀러가기</li>
-                                                                                <li>말레이시아</li>
-                                                                                <li>30under_juu</li>
-                                                                                <li>2019-6-30 ~ 2019-7-8</li>
-                                                                            </ul>
-                                                                        </td>
-                                                                        <td>
-                                                                            <button type="button"
-                                                                                class="btn btn-white btn-round btn-just-icon btn-add"
-                                                                                onClick="location.href= '/map'">
-                                                                                <i class='material-icons'>map</i>
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
-
+                                                                    <% } } %>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -280,8 +275,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
     <!-- Library for adding dinamically elements -->
     <script src="../static/js/plugins/arrive.min.js"></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpMRBJl2IuZHLNVcgb8ptTDea2rlF-sAg"></script>
 
     <!-- Chartist JS -->
     <script src="../static/js/plugins/chartist.min.js"></script>
@@ -290,7 +283,6 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../static/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
 
-    <script src="../static/js/maps_profile.js"></script>
 
     <script>
 

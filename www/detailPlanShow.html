@@ -31,10 +31,15 @@
             console.log(len, idx);
 
             for(var i = 1; i <= len; i++) {
-                if(i == idx)
+                if(i == idx) {
                     $('#d' + i).addClass('active').addClass('show');
-                else
+                   // $('#dd' + i).addClass('active').addClass('show');
+                }
+                else {
                     $('#d' + i).removeClass('active').removeClass('show');
+                  //  $('#dd' + i).removeClass('active').removeClass('show');
+                }
+                
             }
 
            
@@ -84,13 +89,13 @@
                             <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                            <a class="dropdown-item" href="./costPage">Profile</a>
-                            <a class="dropdown-item" href="#">My Plan</a>
+                            <a class="dropdown-item" href="/myPage_profile">Profile</a>
+                            <a class="dropdown-item" href="/myPage_plan">My Plan</a>
                             <div class="dropdown-divider"></div>
                             <% if(locals.nickname == 'User'){ %>
-                            <a class="dropdown-item" href="./user/login">Log In</a>
+                            <a class="dropdown-item" href="/user/login">Log In</a>
                             <% } else { %>
-                            <a class="dropdown-item" href="./user/logout">Log Out</a>
+                            <a class="dropdown-item" href="/user/logout">Log Out</a>
                             <% } %>
                         </div>
                     </li>
@@ -129,10 +134,10 @@
                                         <div class="leftbox">
                                             <div class="nav-tabs-navigation">
                                                 <div class="nav-tabs-wrapper">
-                                                    <ul class="nav nav-tabs" id="myTab">
+                                                    <ul class="nav nav-tabs" id="myTab" style="padding: 0px;">
                                                         <%  for (var i = 1; i <= day; i++) { %>
                                                         <li class="nav-item">
-                                                            <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
+                                                            <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab" style="position:relative; left:0%;">DAY<%= i %></a>
                                                         </li>
                                                         <% } %>
                                                     </ul>
@@ -140,7 +145,7 @@
                                             </div>
                                         </div>
                                         <div class="rightbox">
-                                            <form action="/plan/detailPlanShow2" method="post">
+                                            <form action="/plan/detailPlanShow2" id="form1" method="post">
                                                 <input type="hidden" name="planId" id="planId" value="<%= planId %>">
                                                 <div class="row">
                                                     <br /><br /><br />
@@ -185,23 +190,25 @@
                                                                     <% if(detailList[j].days == i) { %>
                                                                     <li><span class="title"><%= detailList[j].content %>
                                                                             <h10 class="time">
-                                                                                <%= detailList[j].startTime %> ~
-                                                                                <%= detailList[j].finishTime %></h10>
+                                                                                <%= detailList[j].startTime %> ~ <%= detailList[j].finishTime %></h10>
                                                                             </span><span class="drag-area"></span></li>
                                                                     <%  } } }%>
                                                                 </ul>
-                                                            </div> <% } %>
+                                                            </div>
+                                                           
+                                                            <% } %>
                                                         </div>
                                                         
 
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <h4 style="font-weight: bold;">Review</h4><textarea id="textfield" name="review"
-                                                                rows="5" cols="20" class="form-control"
+                                                            <h4 style="font-weight: bold;">Review</h4><textarea id="textfield" name="review" rows="5" cols="20"
+                                                                class="form-control"
                                                                 style="border:1px solid rgb(196, 196, 196);"><% if(locals.review) { %><%= review %><% } %></textarea>
                                                         </div>
                                                     </div>
+                                                   
                                                 </div>
                                                 <br />
 
@@ -285,6 +292,21 @@
                     $('#btnAdd').attr('onclick', "location.href= '/plan/detailPlanCreate/" + planId + "/" + cdayValue + "'");
                     $(this).tab('show');
                 });
+
+                var test = $('.aaClick').attr('id');
+                var d = test.substring(3, 4);
+                console.log(test);
+                console.log(d);
+                if(test == '<%= fdayValue %>') {
+                    $('#'+test).addClass('active').addClass('show');
+                    $('#d'+d).addClass('active').addClass('show');
+                }
+
+                var flag = '<%= flag %>';
+                if(flag == 'm') {
+                    $('#form1').attr('action', '/plan/detailPlanModify');
+                }
+
 
                 $(document).ready(function () {
                     var jbOffset = $('.jbMenu').offset();

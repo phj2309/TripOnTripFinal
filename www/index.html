@@ -20,38 +20,46 @@
     <link href="../static/demo/demo.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js" />
+    <script>
+        function change(idx) {
+            console.log('들어옴');
+                        var planId = $('#cardClick'+idx+' .cardId').attr('id');
+                        location.href = "/detailPlanShow_view/"+planId;
+                    }
+    </script>
 </head>
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
+           <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
+            
             <div class="logo">
-                <a class="simple-text logo-normal" href="./">
+                <a class="simple-text logo-normal" href="/">
                     Trip ON Trip
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item active ">
-                        <a class="nav-link" href="./">
+                        <a class="nav-link" href="/">
                             <i class="material-icons">home</i>
                             <p>HOME</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./plan">
+                        <a class="nav-link" href="/plan">
                             <i class="material-icons">flight_takeoff</i>
                             <p>PLAN</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./expense">
+                        <a class="nav-link" href="/expense">
                             <i class="material-icons">attach_money</i>
                             <p>Expense</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./favoritePlan">
+                        <a class="nav-link" href="/favoritePlan">
                             <i class="material-icons">favorite</i>
                             <p>Favorite Plan</p>
                         </a>
@@ -95,7 +103,7 @@
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <div class="container-fluid">
-                        <form id="form" class="form2">
+                        <form id="form" class="form2" method="post">
                             <!-- 드롭다운 추가 -->
                             <div class="wrap-drop" id="noble-gases" style="display: inline-block;">
                                 <span>TITLE</span>
@@ -130,7 +138,7 @@
                             <div class="input-group no-border">
                                 <input type="text" name="search" id="search" value="" class="form-control" placeholder="Search..."
                                     style="color:#4c4c4c">
-                                <button type="button" id="btnSearch" class="btn btn-white btn-round btn-just-icon"
+                                <button type="submit" id="btnSearch" class="btn btn-white btn-round btn-just-icon"
                                     style="position:relative; right:-10%; background-color: #ffffff80; color:#000000">
                                     <i class="material-icons">search</i>
                                 </button>
@@ -144,13 +152,13 @@
                 <!-- End Navbar 피드 들어가는 공간-->
                 <div class="content">
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row" id="main">
                            
                                 <% if(locals.planList) { %>
                                     <% for(var i=0; i<planList.length; i++) { %>
                                     <div class="col-12 col-sm-6 col-lg-4">
-                                        <div class="card" id="cardClick" style="background-color: #ffffff90;">
-                                    
+                                        <div class="card" id="cardClick<%= i %>" onclick='javascript:change(<%= i %>)' style="background-color: #ffffff90;">
+                                            <div class="cardId" id="<%= planList[i].planId %>">
                                             <div class="card-body table-responsive">
                                                 <div class="card-category">
                                                     <img src="../static/img/mal.jpg" style="width: 100%; height: 200px;" alt="trip_review_image" />
@@ -159,17 +167,18 @@
                                                     <p style="margin:10px 0px 5px 0px; font-weight: bold; font-size:20px; color:black;"><%= planList[i].title %></p>
                                                     <p style="margin:0px;"><%= planList[i].startDate %> ~ <%= planList[i].finishDate %></p>
                                                     <p style="margin:0px;"><img src="../static/img/local_offer.svg"
-                                                            style=" width:20px; height:20px; padding-right: 5px;" />
-                                                            <% for(var j=0; j<planList[i].group.length; j++) { %>
-                                                                <% if(j == planList[i].group.length-1) {%>
-                                                                <%= planList[i].group[j] %>
-                                                                <% }else{ %>
-                                                                <%= planList[i].group[j] %>, 
-                                                                <% } } %>
+                                                      style=" width:20px; height:20px; padding-right: 5px;" />
+                                                      <% for(var j=0; j<planList[i].group.length; j++) { %>
+                                                        <% if(j == planList[i].group.length-1) {%>
+                                                        <%= planList[i].group[j] %>
+                                                        <% }else{ %>
+                                                        <%= planList[i].group[j] %>, 
+                                                        <% } } %>
                                     
                                                     </p>
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                     <% } } %>
@@ -281,15 +290,7 @@
                         var filter = $("ul.drop li.selected").find('a').text();
                         console.log('search: '+search);
                         console.log('filter: '+filter);
-                        $.ajax({
-                        type:"post",
-                        url:"/searchPlan",
-                        data: {searchword : search, filter: filter},
-                        dataType: "json",
-                        success: function(data) {
-                            
-                        }
-                    });
+                        $('#form').attr('action', "/searchPlan/"+filter);
                 });
                     
 
@@ -337,9 +338,14 @@
                             $('.wrap-drop').removeClass('active');
                         });
                     });
-
+                    function change(idx) {
+                        var planId = $('#cardClick'+idx+' .cardId').attr('id');
+                        location.href = "/detailPlanShow_view/"+planId;
+                    }
+                    
                     $('#cardClick').click(function () {
-                        location.href = "detailPlanShow_view";
+                        var planId = $('.cardId').attr('id');
+                        location.href = "/detailPlanShow_view/"+planId;
                     });
 
                     $('.dropdown-toggle').dropdown();
