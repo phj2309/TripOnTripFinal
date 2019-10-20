@@ -150,12 +150,26 @@ module.exports = {
 			});
 		});
 	},
-	insertReview: function(_days,_comment) {
+	insertReview: function(_days,_comment, _planId) {
         return new Promise(function(resolve, reject) {
-			var insertQuery = 'INSERT INTO tripontrip_db.review (days, comment) VALUES (?, ?)';
+			var insertQuery = 'INSERT INTO tripontrip_db.review (days, comment, plan_id) VALUES (?, ?, ?)';
 
-			sql.excuteParam(insertQuery, [_days, _comment]).then(function(rows) {
+			sql.excuteParam(insertQuery, [_days, _comment, _planId]).then(function(rows) {
 				resolve(true);
+			}).catch(function(error) {
+				reject(error);
+			});
+		});
+	},
+	getReviewList: function(_planId) {
+		return new Promise(function(resolve, reject) {
+			var selectQuery = 'SELECT * FROM tripontrip_db.review WHERE plan_id = ?';
+
+			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+
+				resolve(rows);
 			}).catch(function(error) {
 				reject(error);
 			});

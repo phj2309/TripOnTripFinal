@@ -20,6 +20,13 @@
     <link href="../static/demo/demo.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js" />
+    <script>
+        function change(idx) {
+            console.log('들어옴');
+                        var planId = $('#cardClick'+idx+' .cardId').attr('id');
+                        location.href = "/detailPlanShow_view/"+planId;
+                    }
+    </script>
 </head>
 
 <body class="">
@@ -149,8 +156,8 @@
                                 <% if(locals.planList) { %>
                                     <% for(var i=0; i<planList.length; i++) { %>
                                     <div class="col-12 col-sm-6 col-lg-4">
-                                        <div class="card" id="cardClick" style="background-color: #ffffff90;">
-                                    
+                                        <div class="card" id="cardClick<%= i %>" onclick='javascript:change(<%= i %>)' style="background-color: #ffffff90;">
+                                            <div class="cardId" id="<%= planList[i].planId %>">
                                             <div class="card-body table-responsive">
                                                 <div class="card-category">
                                                     <img src="../static/img/mal.jpg" style="width: 100%; height: 200px;" alt="trip_review_image" />
@@ -170,6 +177,7 @@
                                                     </p>
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                     <% } } %>
@@ -329,9 +337,14 @@
                             $('.wrap-drop').removeClass('active');
                         });
                     });
-
+                    function change(idx) {
+                        var planId = $('#cardClick'+idx+' .cardId').attr('id');
+                        location.href = "/detailPlanShow_view/"+planId;
+                    }
+                    
                     $('#cardClick').click(function () {
-                        location.href = "detailPlanShow_view";
+                        var planId = $('.cardId').attr('id');
+                        location.href = "/detailPlanShow_view/"+planId;
                     });
 
                     $('.dropdown-toggle').dropdown();
