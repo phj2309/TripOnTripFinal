@@ -2,7 +2,7 @@ function addCost(i, count, c, nameList) {
     var tagList = '';
     var collapseExample = "collapseExample";
     var checkbox = "checkbox";
-    // var user = "user";
+    var user = "user";
     var nameList = nameList.split(',');
     //count는 plan을 수정할 수 있는 사람들의 수
         collapseExample += i;
@@ -19,7 +19,7 @@ function addCost(i, count, c, nameList) {
         tagList += '<div class="collapse" id="'+collapseExample+'" aria-expanded="true" style>';
         tagList += '<div class="cdiv"><ul class="ks-cboxtags">';
         for(var j=0; j<count; j++) {
-            tagList += '<li><input type="checkbox" id="'+checkbox+c+'" value="Rainbow Dash" checked><label for="'+checkbox+c+'">'+nameList[j]+'</label></li>';
+            tagList += '<li><input type="checkbox" id="'+checkbox+c+'" value="'+nameList[j]+'" class="checkform" name="checkform[]" checked><label for="'+checkbox+c+'">'+nameList[j]+'</label></li>';
             c++;
         }
         tagList += '</ul></div></div></div></div>';

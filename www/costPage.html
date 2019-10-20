@@ -27,6 +27,7 @@
 </head>
 
 <body class="">
+  <div id="url" style="display:none"><%= planId %>/<%= dayValue %></div>
   <div class="wrapper ">
     <div class="main-panel">
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -53,7 +54,8 @@
                   <h4 class="card-title">Enter your trip cost.</h4>
                 </div>
                 <div class="card-body">
-                  <form action="/plan/costPage/<%= planId %>/<%= dayValue %>" method="POST">
+                  <!-- <form action="/plan/costPage/<%= planId %>/<%= dayValue %>" method="POST"> -->
+                    <form action="/plan/detailPlanShow" method="POST"></form>
                     <div class="row">
                         <div class="col-md-3">
                         <div class="form-group">
@@ -149,10 +151,11 @@
 
                     </div>
                     <br/>
-                    <button type="submit" class="btn btn-primary pull-right">save</button>
+                    <button type="submit" id="save" class="btn btn-primary pull-right">save</button>
                     <div class="clearfix"></div>
                     <input type="hidden" id="count" name="count" value="<%= count %>">
-                  </form>
+                    <input type="hidden" id="checkResult" name="checkResult[]" value="">
+                 </form> 
                 </div>
               </div>
             </div>
@@ -231,12 +234,75 @@
         var i = 0;
         var c = 0;
         
+        // $('#save').click(function() {
+        //   console.log('CLICK');
+        //   var rowArr = $('#costInputArea').children("div[class='row']");
+
+
+        //   let _data = {
+        //     sYear:  $("select[name='sYear']").val(),
+        //     count: rowArr.length,
+        //     row: []
+        //   }
+
+        //   for( var i = 0  ; i < rowArr.length; i++) {
+        //     let rowData = {
+        //       realItem: $(rowArr[i]).find("input[name='realItem']").val(),
+        //       realCost:  $(rowArr[i]).find("input[name='realCost']").val(),
+        //       checkform: []
+        //     };
+
+        //     var isCheckedControll = $(rowArr[i]).find("input:checked");
+
+        //     for(var j = 0; j < isCheckedControll.length; j++) {
+        //       rowData.checkform.push($(isCheckedControll[j]).val())
+        //     }
+
+        //     _data.row.push(rowData);
+        //   }
+      
+        //   console.log(_data);
+
+        //   let url = '/plan/costPage/' + $('#url').text();
+        //   // let url = '/detailPlanShow';
+
+        //   console.log(url);
+        //   $.ajax({
+        //     url: url,
+        //     type: "POST",
+        //     data: _data,
+        //     dataType: "json",
+        //     success: function (data) {
+        //       console.log(data);
+        //       location.href = url;
+        //     }
+        //   })
+
+
+        // });
+
+
         $('#btnAdd').click(function () {
           var nameList = $('#nameList').val();
           i++
           addCost(i, count, c, nameList);
           // c = c+count;
         });
+
+        //nickname checkbox
+        var checkResult = new Array();
+        var checkform = $(".checkform");
+        for(var i= 0; i<checkform.length; i++){
+          var id = $('.ks-cboxtags li input').attr("id");
+          if(("input:checkbox[id='"+id+"']").is(":checked")){
+            checkResult[i] = checkform[i].val();
+          }else{
+            checkResult[i] = "null";
+          }
+          console.log(checkform[i].val());
+          $("#checkResult").val(checkResult);
+        }
+    
 
         $('.fixed-plugin a').click(function (event) {
           // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
