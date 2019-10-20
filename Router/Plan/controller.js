@@ -188,9 +188,11 @@ exports.insertDetailPlan = async function(req, res)
     }).then(function(result) {
         console.log("insertPlace success");
         return mapper.plan.detailPlanList(planId);
-    }).then(function(result) {
+    }).then(async function(result) {
         console.log("detailPlanList 호출");
         var detailList = [];
+        var reviewList = [];
+        let reviewListResult = await mapper.plan.getReviewList(planId);
         for(var i=0; i<result.length; i++) {
             var dayday = result[i].days;
             dayday = dayday.substring(3, 4);
@@ -200,8 +202,15 @@ exports.insertDetailPlan = async function(req, res)
             var ft = result[i].finishTime;
             ft = ft.substring(0, 5);
             detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+            if(reviewListResult) {
+                var d = reviewListResult[i].days;
+                d = d.substring(3, 4);
+                reviewList.push({days: d, review: reviewListResult[i].comment})
+            }
         }
-
+        if(reviewListResult) {
+            res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days, reviewList: reviewList});
+        }
         res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days});
      }).catch(function(error) {
          console.log(error);
@@ -217,21 +226,47 @@ exports.insertReview = async function (req, res) {
     var day = req.session.day;
     var planId = req.session.planId;
     
-    mapper.plan.insertReview(dayValue, comment).then(function(result) {
-        mapper.plan.detailPlanList(planId, dayValue).then(function(result) {
-            console.log("detailPlanList 호출");
-            var detailList = new Array();
-            for(var i=0; i<result.length; i++) {
-                detailList[i] = result[i].content;
+    mapper.plan.insertReview(dayValue, comment, planId).then(function(result) {
+        return mapper.plan.detailPlanList(planId);
+    }).then(async function(result){
+        console.log("detailPlanList 호출");
+        var detailList = [];
+        var reviewList = [];
+        let reviewListResult = await mapper.plan.getReviewList(planId);
+        for(var i=0; i<result.length; i++) {
+            var dayday = result[i].days;
+            dayday = dayday.substring(3, 4);
+            console.log(dayday);
+            var st = result[i].startTime;
+            st = st.substring(0, 5);
+            var ft = result[i].finishTime;
+            ft = ft.substring(0, 5);
+            if(reviewListResult) {
+                var d = reviewListResult[i].days;
+                d = d.substring(3, 4);
+                reviewList.push({days: d, review: reviewListResult[i].comment})
             }
-            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: dayValue, review: comment });
-         }).catch(function(error) {
-             console.log(error);
-         });
-     }).catch(function(error) {
-         console.log(error);
-         
-     });
+           // detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+        }
+        if(reviewListResult) {
+            res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days, reviewList: reviewList});
+        }
+        res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days});
+    }).catch(function(error) {
+        console.log(error);
+        
+    });
+        // mapper.plan.detailPlanList(planId, dayValue).then(function(result) {
+        //     console.log("detailPlanList 호출");
+        //     var detailList = new Array();
+        //     for(var i=0; i<result.length; i++) {
+        //         detailList[i] = result[i].content;
+        //     }
+        //     res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: dayValue, review: comment });
+        //  }).catch(function(error) {
+        //      console.log(error);
+        //  });
+     
 },
 
 

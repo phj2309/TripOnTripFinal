@@ -2,5 +2,10 @@ const mapper = require('../../DB/mapperController.js');
 
 exports.t = async function(req, res)
 {
-	res.render("expense.html");
+	if(req.session.userId){
+        res.render("expense.html");
+    }else { 
+        res.redirect('/user/login');
+    }
+	
 }

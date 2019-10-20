@@ -31,10 +31,15 @@
             console.log(len, idx);
 
             for(var i = 1; i <= len; i++) {
-                if(i == idx)
+                if(i == idx) {
                     $('#d' + i).addClass('active').addClass('show');
-                else
+                   // $('#dd' + i).addClass('active').addClass('show');
+                }
+                else {
                     $('#d' + i).removeClass('active').removeClass('show');
+                  //  $('#dd' + i).removeClass('active').removeClass('show');
+                }
+                
             }
 
            
@@ -185,23 +190,25 @@
                                                                     <% if(detailList[j].days == i) { %>
                                                                     <li><span class="title"><%= detailList[j].content %>
                                                                             <h10 class="time">
-                                                                                <%= detailList[j].startTime %> ~
-                                                                                <%= detailList[j].finishTime %></h10>
+                                                                                <%= detailList[j].startTime %> ~ <%= detailList[j].finishTime %></h10>
                                                                             </span><span class="drag-area"></span></li>
                                                                     <%  } } }%>
                                                                 </ul>
-                                                            </div> <% } %>
+                                                            </div>
+                                                           
+                                                            <% } %>
                                                         </div>
                                                         
 
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <h4 style="font-weight: bold;">Review</h4><textarea id="textfield" name="review"
-                                                                rows="5" cols="20" class="form-control"
-                                                                style="border:1px solid rgb(196, 196, 196);"><% if(locals.review) { %><%= review %><% } %></textarea>
+                                                            <div class="form-group">
+                                                                <h4 style="font-weight: bold;">Review</h4><textarea id="textfield" name="review"
+                                                                    rows="5" cols="20" class="form-control"
+                                                                    style="border:1px solid rgb(196, 196, 196);"><% if(locals.review) { %><%= review %><% } %></textarea>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                   
                                                 </div>
                                                 <br />
 
@@ -285,6 +292,7 @@
                     $('#btnAdd').attr('onclick', "location.href= '/plan/detailPlanCreate/" + planId + "/" + cdayValue + "'");
                     $(this).tab('show');
                 });
+
 
                 $(document).ready(function () {
                     var jbOffset = $('.jbMenu').offset();

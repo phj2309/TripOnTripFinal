@@ -8,6 +8,56 @@ exports.toMyPlan = async function(req, res)
     res.render("myPage_plan.html");
 }
 
+exports.toProfile = async function(req, res)
+{
+	var userId = req.session.userId;
+    res.render("myPage_plan.html");
+}
+exports.planView = async function(req, res)
+{
+	var planId = req.params.planId;
+	var sf = '%Y-%m-%d';
+	var ff = '%Y-%m-%d';
+	let plans = await mapper.plan.planListById(sf, ff, planId);
+	var title = plans[0].title;
+	var startDate = plans[0].startDate;
+	var finishDate = plans[0].finishDate;
+	var v1 = startDate.split("-");
+	var v2 = finishDate.split("-");
+
+	var a1 = new Date(v1[0],v1[1],v1[2]).getTime();
+	var a2=new Date(v2[0],v2[1],v2[2]).getTime();
+
+	var day = (a2-a1)/(1000*60*60*24) +1;
+
+
+	console.log('dayValue: '+day);
+	let detailPlanList = await mapper.plan.detailPlanList(planId);
+	var detailList = [];
+	var reviewList = [];
+	let reviewListResult = await mapper.plan.getReviewList(planId);
+	for(var i=0; i<detailPlanList.length; i++) {
+		var dayday = detailPlanList[i].days;
+		dayday = dayday.substring(3, 4);
+		console.log(dayday);
+		var st = detailPlanList[i].startTime;
+		st = st.substring(0, 5);
+		var ft = detailPlanList[i].finishTime;
+		ft = ft.substring(0, 5);
+		detailList.push({days: dayday, content: detailPlanList[i].content, startTime: st, finishTime: ft})
+		if(reviewListResult) {
+			var d = reviewListResult[i].days;
+			d = d.substring(3, 4);
+			reviewList.push({days: d, review: reviewListResult[i].comment})
+		}
+	}
+	if(reviewListResult) {
+		res.render("detailPlanShow_view.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList});
+	}
+	res.render("detailPlanShow_view.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: 'day1'});
+    //res.render("detailPlanShow_view.html");
+}
+
 exports.searchPlan = async function(req, res)
 {
 	var filter = req.params.filter;
@@ -47,7 +97,7 @@ exports.searchPlan = async function(req, res)
 					groupList[j] = groupListResult[j].nickname;
 
 				}
-				planList.push({title: title, startDate: startDate, finishDate: finishDate, group: groupList});
+				planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
 				console.log(planList);
 
 			}
@@ -71,7 +121,7 @@ exports.searchPlan = async function(req, res)
 					groupList[j] = groupListResult[j].nickname;
 
 				}
-				planList.push({title: title, startDate: startDate, finishDate: finishDate, group: groupList});
+				planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
 				//console.log(planList);
 
 			}
@@ -99,7 +149,7 @@ exports.searchPlan = async function(req, res)
 				for(var j=0; j<groupListResult.length; j++) {
 					groupList[j] = groupListResult[j].nickname;
 				}
-				planList.push({title: plans[0].title, startDate: plans[0].startDate, finishDate: plans[0].finishDate, group: groupList});
+				planList.push({planId: planId, title: plans[0].title, startDate: plans[0].startDate, finishDate: plans[0].finishDate, group: groupList});
 			}
 		}
 	}
@@ -113,7 +163,7 @@ exports.searchPlan = async function(req, res)
 }
 
 
-exports.toProfile = async function (req, res) {
+exports.toMain = async function (req, res) {
 	//var keyword="";
 	//로그인 여부 판단
 	if (req.session.userId) {
@@ -142,7 +192,7 @@ exports.toProfile = async function (req, res) {
 					groupList[j] = groupListResult[j].nickname;
 
 				}
-				planList.push({title: title, startDate: startDate, finishDate: finishDate, group: groupList});
+				planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
 				//console.log(planList);
 				//console.log(planList);
 				/*.then(function (result) {
@@ -174,7 +224,7 @@ exports.toProfile = async function (req, res) {
 			for(var j=0; j<groupListResult.length; j++) {
 				groupList[j] = groupListResult[j].nickname;
 			}
-			planList.push({title: title, startDate: startDate, finishDate: finishDate, group: groupList});
+			planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
 				//console.log(planList);
 		}
 		res.render('index.html', { nickname: 'User', planList: planList });
