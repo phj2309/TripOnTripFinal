@@ -145,7 +145,7 @@
                                             </div>
                                         </div>
                                         <div class="rightbox">
-                                            <form action="/plan/detailPlanShow2" method="post">
+                                            <form action="/plan/detailPlanShow2" id="form1" method="post">
                                                 <input type="hidden" name="planId" id="planId" value="<%= planId %>">
                                                 <div class="row">
                                                     <br /><br /><br />
@@ -292,6 +292,20 @@
                     $('#btnAdd').attr('onclick', "location.href= '/plan/detailPlanCreate/" + planId + "/" + cdayValue + "'");
                     $(this).tab('show');
                 });
+
+                var test = $('.aaClick').attr('id');
+                var d = test.substring(3, 4);
+                console.log(test);
+                console.log(d);
+                if(test == '<%= fdayValue %>') {
+                    $('#'+test).addClass('active').addClass('show');
+                    $('#d'+d).addClass('active').addClass('show');
+                }
+
+                var flag = '<%= flag %>';
+                if(flag == 'm') {
+                    $('#form1').attr('action', '/plan/detailPlanModify');
+                }
 
 
                 $(document).ready(function () {

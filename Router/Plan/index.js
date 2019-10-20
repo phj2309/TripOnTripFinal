@@ -21,6 +21,8 @@ router.post('/detailPlanShow2', controller.insertReview);
 router.get('/costPage/:planId/:dayValue', controller.cost);
 
 router.post('/costPage/:planId/:dayValue', controller.costAdd);
+
+router.get('/modify/:planId', controller.planModifyView);
 // USER VIEW
 //router.get('/survey/:key', userViewController.userSwitch);
 
