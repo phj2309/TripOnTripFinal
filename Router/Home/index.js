@@ -10,7 +10,7 @@ router.get('/', controller.toProfile);
 
 router.get('/mypage_plan', controller.toMyPlan);
 
-router.post('/searchPlan', controller.searchPlan);
+router.post('/searchPlan/:filter', controller.searchPlan);
 
 // USER VIEW
 //router.get('/survey/:key', userViewController.userSwitch);

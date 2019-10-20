@@ -37,17 +37,17 @@ exports.insertPlan = async function(req, res)
     //res.render("detailPlanShow.html");
     var i=0;
     var s = 'p';
-
     //원본수정 from 수빈    
     var loginedUserNick;
+    var planId;
     mapper.admin.getUserInfoById(userId).then(function (result) {
         var userAI = result[0].user_id; //로그인 user의 auto increament id 값
         loginedUserNick = result[0].nickname; //로그인 user의 nickname 값
-
+        
         return mapper.plan.createPlan(userAI, title, startDate, finishDate, country);
     }).then(async function (result) {
         console.log(result.insertId);
-        var planId = result.insertId;
+        planId = result.insertId;
         req.session.planId = planId;
 
         for (i = 0; i < req.body.mate.length; i++) {
@@ -68,6 +68,7 @@ exports.insertPlan = async function(req, res)
         req.session.title = title;
         req.session.day = btDay;
         var fdayValue = 'day1';
+
         res.render("detailPlanShow.html", { day: btDay, planId: planId, title: title, fdayValue: fdayValue });
     }).catch(function (error) {
         console.log(error);
@@ -157,8 +158,9 @@ exports.insertDetailPlan = async function(req, res)
 {
     var latitude = req.body.lat;
     var longitude = req.body.lon;
-    var address = req.body.addressValue;
-    var keyword = req.body.address;
+    var addressValue = req.body.addressValue;
+    var keyword = req.body.place;
+    console.log('keyword: '+keyword);
     var planId = req.session.planId;
     var content = req.body.content;
     var sHour = req.body.sHour;
@@ -182,7 +184,7 @@ exports.insertDetailPlan = async function(req, res)
     mapper.plan.createDetailPlan(planId, days, content, startTime, finishTime).then(function(result) {
         console.log("createDetailPlan success");
         var days_detail_id = result.insertId;
-        return mapper.map.insertPlace(days_detail_id, address, keyword, latitude, longitude);
+        return mapper.map.insertPlace(days_detail_id, addressValue, keyword, latitude, longitude);
     }).then(function(result) {
         console.log("insertPlace success");
         return mapper.plan.detailPlanList(planId);
