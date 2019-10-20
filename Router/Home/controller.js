@@ -29,7 +29,7 @@ exports.toMyPlan = async function(req, res)
 			planList.push({planId: planId, title: plans[0].title, country: plans[0].country, startDate: plans[0].startDate, finishDate: plans[0].finishDate, group: groupList});
 		}
 
-		res.render("myPage_plan.html", {planList: planList});
+		res.render("myPage_plan.html", {planList: planList, nickname:nickname});
 	} else {
 		res.redirect('/user/login');
 	}
@@ -38,10 +38,13 @@ exports.toMyPlan = async function(req, res)
 exports.toProfile = async function(req, res)
 {
 	var userId = req.session.userId;
-    res.render("myPage_plan.html");
+	let nickname = await mapper.admin.findNicknameById(userId);
+    res.render("myPage_plan.html", {nickname: nickname[0].nickname});
 }
 exports.planView = async function(req, res)
 {
+	var userId = req.session.userId;
+	let nickname = await mapper.admin.findNicknameById(userId);
 	var planId = req.params.planId;
 	var sf = '%Y-%m-%d';
 	var ff = '%Y-%m-%d';
@@ -79,9 +82,9 @@ exports.planView = async function(req, res)
 			d = d.substring(3, 4);
 			reviewList.push({ days: d, review: reviewListResult[j].comment })
 		}
-		res.render("detailPlanShow_view.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList});
+		res.render("detailPlanShow_view.html", {nickname: nickname[0].nickname, planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList});
 	} else
-		res.render("detailPlanShow_view.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1'});
+		res.render("detailPlanShow_view.html", {nickname: nickname[0].nickname, planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1'});
     //res.render("detailPlanShow_view.html");
 }
 
