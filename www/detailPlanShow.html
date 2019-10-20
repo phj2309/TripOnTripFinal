@@ -26,6 +26,20 @@
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap&subset=latin-ext" rel="stylesheet">
+    <script>
+        function tabMove(len, idx) {
+            console.log(len, idx);
+
+            for(var i = 1; i <= len; i++) {
+                if(i == idx)
+                    $('#d' + i).addClass('active').addClass('show');
+                else
+                    $('#d' + i).removeClass('active').removeClass('show');
+            }
+
+           
+        }
+    </script>
 </head>
 <!--data-image="\static\img\sidebar-1.jpg"  -->
 
@@ -70,13 +84,13 @@
                             <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                            <a class="dropdown-item" href="./costPage">Profile</a>
-                            <a class="dropdown-item" href="#">My Plan</a>
+                            <a class="dropdown-item" href="/myPage_profile">Profile</a>
+                            <a class="dropdown-item" href="/myPage_plan">My Plan</a>
                             <div class="dropdown-divider"></div>
                             <% if(locals.nickname == 'User'){ %>
-                            <a class="dropdown-item" href="./user/login">Log In</a>
+                            <a class="dropdown-item" href="/user/login">Log In</a>
                             <% } else { %>
-                            <a class="dropdown-item" href="./user/logout">Log Out</a>
+                            <a class="dropdown-item" href="/user/logout">Log Out</a>
                             <% } %>
                         </div>
                     </li>
@@ -118,8 +132,7 @@
                                                     <ul class="nav nav-tabs" id="myTab">
                                                         <%  for (var i = 1; i <= day; i++) { %>
                                                         <li class="nav-item">
-                                                            <a class="nav-link aaClick" href="#d<%= i %>"
-                                                                id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
+                                                            <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
                                                         </li>
                                                         <% } %>
                                                     </ul>
@@ -152,7 +165,7 @@
                                                             </button>
                                                             <button type="button"
                                                                 class="btn btn-white btn-round btn-just-icon detailButton"
-                                                                onClick="location.href='/plan/costPage/<%= planId %>'"
+                                                                onClick="location.href='/plan/costPage/<%= planId %>/<%= fdayValue %>'"
                                                                 style="color : #8C8C8C;">
                                                                 <i class="material-icons">attach_money</i>
                                                             </button>

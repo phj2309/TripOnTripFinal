@@ -34,7 +34,8 @@ exports.login = async function (req, res) {
                 // userId 세션 생성 - 로그인 여부 확인
                 req.session.userId = userId;
                 req.session.save(() => {
-                    res.render("index.html", { nickname: result[0].nickname });
+                    res.redirect('/');
+                   // res.render("index.html", { nickname: result[0].nickname });
                 });
 
             } else {
@@ -72,8 +73,8 @@ exports.login = async function (req, res) {
             }).then(function (result) {
                 req.session.userId = id;
                 req.session.save(() => {
-                    res.render("index.html", { nickname: nickname });
-                    //   res.redirect('/');
+                    //res.render("index.html", { nickname: nickname });
+                    res.redirect('/');
                 });
 
             }).catch(function (error) {

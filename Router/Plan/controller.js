@@ -37,17 +37,17 @@ exports.insertPlan = async function(req, res)
     //res.render("detailPlanShow.html");
     var i=0;
     var s = 'p';
-
     //원본수정 from 수빈    
     var loginedUserNick;
+    var planId;
     mapper.admin.getUserInfoById(userId).then(function (result) {
         var userAI = result[0].user_id; //로그인 user의 auto increament id 값
         loginedUserNick = result[0].nickname; //로그인 user의 nickname 값
-
+        
         return mapper.plan.createPlan(userAI, title, startDate, finishDate, country);
     }).then(async function (result) {
         console.log(result.insertId);
-        var planId = result.insertId;
+        planId = result.insertId;
         req.session.planId = planId;
 
         for (i = 0; i < req.body.mate.length; i++) {
@@ -55,29 +55,20 @@ exports.insertPlan = async function(req, res)
             console.log("현재 닉" + nickname);
 
             //입력된 mate들(nickname값)이 user테이블에 있는 값인지 확인.
-            await mapper.admin.hasNickname(nickname).then(function (result) {
-                console.log("결과" + result);
-                if (result == true) {
-                    return mapper.plan.insertGroup(planId, nickname);
-                }
-            }).then(function (result) {
-                console.log("insertGroup success : mates" + i);
-
-
-            }).catch(function (error) {
-                console.log(error);
-
-            });
+            let hasNickResult = await mapper.admin.hasNickname(nickname);
+            if (hasNickResult == true) {
+                mapper.plan.insertGroup(planId, nickname);
+            }
         } //for문 끝
-        mapper.plan.insertGroup(planId, loginedUserNick).then(function (result) {
-            console.log("insertGroup success : logined user");
-        }).catch(function (error) {
-            console.log(error);
-        });
+
+
+        return mapper.plan.insertGroup(planId, loginedUserNick);
+    }).then(function(result) {
         console.log("createPlan success");
         req.session.title = title;
         req.session.day = btDay;
         var fdayValue = 'day1';
+
         res.render("detailPlanShow.html", { day: btDay, planId: planId, title: title, fdayValue: fdayValue });
     }).catch(function (error) {
         console.log(error);
@@ -167,8 +158,9 @@ exports.insertDetailPlan = async function(req, res)
 {
     var latitude = req.body.lat;
     var longitude = req.body.lon;
-    var address = req.body.addressValue;
-    var keyword = req.body.address;
+    var addressValue = req.body.addressValue;
+    var keyword = req.body.place;
+    console.log('keyword: '+keyword);
     var planId = req.session.planId;
     var content = req.body.content;
     var sHour = req.body.sHour;
@@ -192,29 +184,25 @@ exports.insertDetailPlan = async function(req, res)
     mapper.plan.createDetailPlan(planId, days, content, startTime, finishTime).then(function(result) {
         console.log("createDetailPlan success");
         var days_detail_id = result.insertId;
-        mapper.map.insertPlace(days_detail_id, address, keyword, latitude, longitude).then(function(result) {
-            console.log("insertPlace success");
-            mapper.plan.detailPlanList(planId).then(function(result) {
-                console.log("detailPlanList 호출");
-                var detailList = [];
-                for(var i=0; i<result.length; i++) {
-                    var dayday = result[i].days;
-                    dayday = dayday.substring(3, 4);
-                    console.log(dayday);
-                    var st = result[i].startTime;
-                    st = st.substring(0, 5);
-                    var ft = result[i].finishTime;
-                    ft = ft.substring(0, 5);
-                    detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
-                }
-                res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList, fdayValue: days});
-             }).catch(function(error) {
-                 console.log(error);
-             });
-         }).catch(function(error) {
-             console.log(error);
-         });
-        
+        return mapper.map.insertPlace(days_detail_id, addressValue, keyword, latitude, longitude);
+    }).then(function(result) {
+        console.log("insertPlace success");
+        return mapper.plan.detailPlanList(planId);
+    }).then(function(result) {
+        console.log("detailPlanList 호출");
+        var detailList = [];
+        for(var i=0; i<result.length; i++) {
+            var dayday = result[i].days;
+            dayday = dayday.substring(3, 4);
+            console.log(dayday);
+            var st = result[i].startTime;
+            st = st.substring(0, 5);
+            var ft = result[i].finishTime;
+            ft = ft.substring(0, 5);
+            detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+        }
+
+        res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days});
      }).catch(function(error) {
          console.log(error);
          
@@ -276,6 +264,7 @@ exports.cost = async function (req, res) {
 
 
     var planId = req.params.planId;
+    var dayValue = req.params.dayValue;
     var count = 0;
     mapper.plan.groupCount(planId).then(function(result) {
         count = result[0].count;
@@ -288,8 +277,8 @@ exports.cost = async function (req, res) {
             nameList[i] = result[i].nickname;
             console.log("현재 nickList : "+nameList);
         }
-        res.render("costPage.html", {count : count, item: item, cost: cost});
-        // res.render("costPage.html", {count : count, item: item, cost: cost, nameList: nameList});
+        // res.render("costPage.html", {count : count, item: item, cost: cost});
+        res.render("costPage.html", {count : count, item: item, cost: cost, nameList: nameList, planId: planId, dayValue: dayValue});
         
     }).catch(function(error) {
          console.log(error);
@@ -304,33 +293,86 @@ exports.cost = async function (req, res) {
     //     var count = result[0].count;
     //     console.log("group count : "+count);
     //     res.render("costPage.html", {count : count, item: item, cost: cost});
-    //  }).catch(function(error) {
-    //      console.log(error);
-         
-    //  });
+        //  }).catch(function(error) {
+        //      console.log(error);
 
-},
-exports.costAdd = async function (req, res) {
-    //costPage에서 save눌렸을 때 .
-    var planId = req.params.planId;
-    var detailDaysId;
-    var p_cost;
-    var item = req.body.item;
-    var cost;
+        //  });
+
+    },
+    exports.costAdd = async function (req, res) {
+        //costPage에서 save눌렸을 때 .
+        var nameList = req.body.nameList.split(',');
+        var count = req.body.count; //mate들의 수
+
+        var planId = req.params.planId;
+        var detailDaysId = req.params.dayValue;
+        var p_cost = new Array();
+        var items = req.body.realItem;
+        var costs = req.body.realCost;
+
+        console.log(nameList, count, planId, detailDaysId, items, costs);
+
+        if (count == 1) {
+            //개인여행의 경우 모든 지출 비용은 누적됨.
+            for (i = 0; i < req.body.costs.length; i++) {
+                var item = items[i];
+                var cost = costs[i];
+                console.log("현재 item, cost: " + item, cost);
+                mapper.plan.cost(item, nameList[0], cost, detailDaysId).then(function (result) {
+                    console.log(result.insertItem);
+
+                    for (i = 0; i < req.body.cost.length; i++) {
+
+                        item = req.body.item[i];
+                        cost = req.body.cost[i];
+
+                        console.log("item, cost insert successfuly");
+                    }
+                    //    res.render("detailPlanShow.html", {  });
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                //입력된 mate들(nickname값)이 user테이블에 있는 값인지 확인.
+                let hasNickResult = await mapper.admin.hasNickname(nickname);
+                if (hasNickResult == true) {
+                    mapper.plan.insertGroup(planId, nickname);
+                }
+            } //for문 끝
 
 
-    mapper.plan.cost(item, p_cost, cost, detailDaysId).then(function (result) {
-        console.log(result.insertItem);
 
-        for (i = 0; i < req.body.cost.length; i++) {
 
-                item = req.body.item[i];
-                cost = req.body.cost[i];
 
-                console.log("성공");
-        }
-       // res.render("costPage.html", { item: item, cost: cost });
-    }).catch(function (error) {
-        console.log(error);
-    });
+
+
+
+
+
+    }else {
+        //여행 인원이 2명 이상일 때 공금과 개인지출 나눠서 저장
+    }
+    // for(var i=0; i<count.length; i++){
+    //     var v = 'checkbox'+count;
+    //     if(req.body.name == 'realItem'){
+    //         items[i] = 
+    //     }
+        
+    // }
+    res.redirect('/plan/detailPlanShow')
+    // mapper.plan.cost(item, p_cost, cost, detailDaysId).then(function (result) {
+    //     console.log(result.insertItem);
+
+    //     for (i = 0; i < req.body.cost.length; i++) {
+
+    //             item = req.body.item[i];
+    //             cost = req.body.cost[i];
+
+    //             console.log("item, cost insert successfuly");
+    //     }
+    // //    res.render("detailPlanShow.html", {  });
+        
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
 }

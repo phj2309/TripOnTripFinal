@@ -147,7 +147,13 @@
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
             <div class="logo">
+<<<<<<< HEAD
                 <a class="simple-text logo-normal" href="/"> Trip ON Trip </a>
+=======
+                <a class="simple-text logo-normal" href="/">
+                    Trip ON Trip
+                </a>
+>>>>>>> master
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -184,13 +190,13 @@
                             <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                            <a class="dropdown-item" href="./costPage">Profile</a>
-                            <a class="dropdown-item" href="#">My Plan</a>
+                            <a class="dropdown-item" href="/myPage_profile">Profile</a>
+                            <a class="dropdown-item" href="/myPage_plan">My Plan</a>
                             <div class="dropdown-divider"></div>
                             <% if(locals.nickname == 'User'){ %>
-                            <a class="dropdown-item" href="./user/login">Log In</a>
+                            <a class="dropdown-item" href="/user/login">Log In</a>
                             <% } else { %>
-                            <a class="dropdown-item" href="./user/logout">Log Out</a>
+                            <a class="dropdown-item" href="/user/logout">Log Out</a>
                             <% } %>
                         </div>
                     </li>

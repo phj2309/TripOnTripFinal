@@ -33,7 +33,7 @@
         <div class="sidebar" data-color="purple" data-background-color="white"
         data-image="../static/img/back02.jpg">
             <div class="logo">
-                <a class="simple-text logo-normal" href="./"> Trip ON Trip </a>
+                <a class="simple-text logo-normal" href="/"> Trip ON Trip </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -44,19 +44,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./plan">
+                        <a class="nav-link" href="/plan">
                             <i class="material-icons">flight_takeoff</i>
                             <p>PLAN</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./expense">
+                        <a class="nav-link" href="/expense">
                             <i class="material-icons">attach_money</i>
                             <p>Expense</p>
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="./favoritePlan">
+                        <a class="nav-link" href="/favoritePlan">
                             <i class="material-icons">favorite</i>
                             <p>Favorite Plan</p>
                         </a>
@@ -70,13 +70,13 @@
                             <!-- <p class="d-lg-none d-md-block"> User Profile </p> -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                            <a class="dropdown-item" href="./costPage">Profile</a>
-                            <a class="dropdown-item" href="#">My Plan</a>
+                            <a class="dropdown-item" href="/myPage_profile">Profile</a>
+                            <a class="dropdown-item" href="/myPage_plan">My Plan</a>
                             <div class="dropdown-divider"></div>
                             <% if(locals.nickname == 'User'){ %>
-                            <a class="dropdown-item" href="./user/login">Log In</a>
+                            <a class="dropdown-item" href="/user/login">Log In</a>
                             <% } else { %>
-                            <a class="dropdown-item" href="./user/logout">Log Out</a>
+                            <a class="dropdown-item" href="/user/logout">Log Out</a>
                             <% } %>
                         </div>
                     </li>
