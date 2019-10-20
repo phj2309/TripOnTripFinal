@@ -134,10 +134,10 @@
                                         <div class="leftbox">
                                             <div class="nav-tabs-navigation">
                                                 <div class="nav-tabs-wrapper">
-                                                    <ul class="nav nav-tabs" id="myTab">
+                                                    <ul class="nav nav-tabs" id="myTab" style="padding: 0px;">
                                                         <%  for (var i = 1; i <= day; i++) { %>
                                                         <li class="nav-item">
-                                                            <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
+                                                            <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab" style="position:relative; left:0%;">DAY<%= i %></a>
                                                         </li>
                                                         <% } %>
                                                     </ul>

@@ -50,8 +50,7 @@
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="white"
-            data-image="../static/img/sidebar-1.jpg">
+            <div class="sidebar" data-color="purple" data-background-color="white" data-image="../static/img/back02.jpg">
             <div class="logo">
                 <a class="simple-text logo-normal" href="/"> Trip ON Trip </a>
             </div>
@@ -135,10 +134,10 @@
                                             <div class="leftbox">
                                                     <div class="nav-tabs-navigation">
                                                         <div class="nav-tabs-wrapper">
-                                                            <ul class="nav nav-tabs" id="myTab">
+                                                            <ul class="nav nav-tabs" id="myTab" style="padding: 0px;">
                                                                 <%  for (var i = 1; i <= day; i++) { %>
                                                                 <li class="nav-item">
-                                                                    <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab">DAY<%= i %></a>
+                                                                    <a class="nav-link aaClick" onclick='javascript:tabMove(<%=day%>, <%=i%>)' id="day<%= i %>" data-toggle="tab" style="position:relative; left:0%;">DAY<%= i %></a>
                                                                 </li>
                                                                 <% } %>
                                                             </ul>
@@ -147,7 +146,7 @@
                                                 </div>
                                         <div class="rightbox">
                                             <form method="post">
-                                                <input type="hidden" name="planId" id="planId" value="<%= planId %>">
+                                                <!-- <input type="hidden" name="planId" id="planId" value="<%= planId %>"> -->
                                                 <div class="row">
                                                     <br/><br/><br/>
                                                     <div class="col-md-3">
@@ -172,6 +171,7 @@
                                                                                 </span><span>
                                                                                         <button type="button" class="mapButton" style="position: relative; top:0%;">
                                                                                             <i class="material-icons">map</i></button>
+                                                                                    
                                                                                     </span></li>
                                                                         <%  } } }%>
                                                                     </ul>
@@ -216,13 +216,13 @@
     <script src="../static/js/plugins/jquery.validate.min.js"></script>
     <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
     <script src="../static/js/plugins/jquery.bootstrap-wizard.js"></script>
-    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <!--   Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
     <script src="../static/js/plugins/bootstrap-selectpicker.js"></script>
     <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
     <script src="../static/js/plugins/bootstrap-datetimepicker.min.js"></script>
     <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
     <script src="../static/js/plugins/jquery.dataTables.min.js"></script>
-    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <!--   Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
     <script src="../static/js/plugins/bootstrap-tagsinput.js"></script>
     <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
     <script src="../static/js/plugins/jasny-bootstrap.min.js"></script>
