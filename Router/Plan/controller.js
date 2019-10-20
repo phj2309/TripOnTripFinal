@@ -202,16 +202,18 @@ exports.insertDetailPlan = async function(req, res)
             var ft = result[i].finishTime;
             ft = ft.substring(0, 5);
             detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
-            if(reviewListResult) {
-                var d = reviewListResult[i].days;
+            console.log('detailList: '+detailList);
+        }
+        if (reviewListResult) {
+            for (var j = 0; j < reviewListResult.length; j++) {
+                var d = reviewListResult[j].days;
                 d = d.substring(3, 4);
-                reviewList.push({days: d, review: reviewListResult[i].comment})
+                reviewList.push({ days: d, review: reviewListResult[j].comment })
             }
-        }
-        if(reviewListResult) {
-            res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days, reviewList: reviewList});
-        }
-        res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days});
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: days, reviewList: reviewList});
+        } else
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: days});
+        
      }).catch(function(error) {
          console.log(error);
          
@@ -241,17 +243,18 @@ exports.insertReview = async function (req, res) {
             st = st.substring(0, 5);
             var ft = result[i].finishTime;
             ft = ft.substring(0, 5);
-            if(reviewListResult) {
-                var d = reviewListResult[i].days;
+    
+           detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+        }
+        if (reviewListResult) {
+            for (var j = 0; j < reviewListResult.length; j++) {
+                var d = reviewListResult[j].days;
                 d = d.substring(3, 4);
-                reviewList.push({days: d, review: reviewListResult[i].comment})
+                reviewList.push({ days: d, review: reviewListResult[j].comment })
             }
-           // detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
-        }
-        if(reviewListResult) {
-            res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days, reviewList: reviewList});
-        }
-        res.render("detailPlanShow.html", {planId: planId,title: title, day: day, detailList: detailList,fdayValue: days});
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1', reviewList: reviewList});
+        } else
+            res.render("detailPlanShow.html", {planId: planId, title: title, day: day, detailList: detailList,fdayValue: 'day1'});
     }).catch(function(error) {
         console.log(error);
         

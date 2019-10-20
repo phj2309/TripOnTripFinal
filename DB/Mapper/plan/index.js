@@ -231,7 +231,7 @@ module.exports = {
 	},
 	planListById: function(_sf, _ff, _planId){
 		return new Promise(function(resolve, reject){
-			var selectQuery = 'SELECT title, date_format(startDate, ?) startDate, date_format(finishDate, ?) finishDate FROM tripontrip_db.plan WHERE plan_id = ?';
+			var selectQuery = 'SELECT title, country, date_format(startDate, ?) startDate, date_format(finishDate, ?) finishDate FROM tripontrip_db.plan WHERE plan_id = ?';
 			sql.excuteParam(selectQuery, [_sf, _ff, _planId]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
