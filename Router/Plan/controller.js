@@ -40,6 +40,7 @@ exports.insertPlan = async function(req, res)
 
     //원본수정 from 수빈    
     var loginedUserNick;
+    var planId;
     mapper.admin.getUserInfoById(userId).then(function (result) {
         var userAI = result[0].user_id; //로그인 user의 auto increament id 값
         loginedUserNick = result[0].nickname; //로그인 user의 nickname 값
@@ -47,7 +48,7 @@ exports.insertPlan = async function(req, res)
         return mapper.plan.createPlan(userAI, title, startDate, finishDate, country);
     }).then(async function (result) {
         console.log(result.insertId);
-        var planId = result.insertId;
+        planId = result.insertId;
         req.session.planId = planId;
 
         for (i = 0; i < req.body.mate.length; i++) {
@@ -262,6 +263,7 @@ exports.cost = async function (req, res) {
 
 
     var planId = req.params.planId;
+    var dayValue = req.params.dayValue;
     var count = 0;
     mapper.plan.groupCount(planId).then(function(result) {
         count = result[0].count;
@@ -275,7 +277,7 @@ exports.cost = async function (req, res) {
             console.log("현재 nickList : "+nameList);
         }
         // res.render("costPage.html", {count : count, item: item, cost: cost});
-        res.render("costPage.html", {count : count, item: item, cost: cost, nameList: nameList, planId: planId});
+        res.render("costPage.html", {count : count, item: item, cost: cost, nameList: nameList, planId: planId, dayValue: dayValue});
         
     }).catch(function(error) {
          console.log(error);
@@ -290,24 +292,65 @@ exports.cost = async function (req, res) {
     //     var count = result[0].count;
     //     console.log("group count : "+count);
     //     res.render("costPage.html", {count : count, item: item, cost: cost});
-    //  }).catch(function(error) {
-    //      console.log(error);
-         
-    //  });
+        //  }).catch(function(error) {
+        //      console.log(error);
 
-},
-exports.costAdd = async function (req, res) {
-    //costPage에서 save눌렸을 때 .
-    var nameList = req.body.nameList;
-    var count = req.body.count; //mate들의 수
-    var planId = req.params.planId;
-    var detailDaysId;
-    var p_cost = new Array();
-    var items = new Array();
-    var costs = new Array();
+        //  });
+
+    },
+    exports.costAdd = async function (req, res) {
+        //costPage에서 save눌렸을 때 .
+        var nameList = req.body.nameList.split(',');
+        var count = req.body.count; //mate들의 수
+
+        var planId = req.params.planId;
+        var detailDaysId = req.params.dayValue;
+        var p_cost = new Array();
+        var items = req.body.realItem;
+        var costs = req.body.realCost;
+
+        console.log(nameList, count, planId, detailDaysId, items, costs);
+
+        if (count == 1) {
+            //개인여행의 경우 모든 지출 비용은 누적됨.
+            for (i = 0; i < req.body.costs.length; i++) {
+                var item = items[i];
+                var cost = costs[i];
+                console.log("현재 item, cost: " + item, cost);
+                mapper.plan.cost(item, nameList[0], cost, detailDaysId).then(function (result) {
+                    console.log(result.insertItem);
+
+                    for (i = 0; i < req.body.cost.length; i++) {
+
+                        item = req.body.item[i];
+                        cost = req.body.cost[i];
+
+                        console.log("item, cost insert successfuly");
+                    }
+                    //    res.render("detailPlanShow.html", {  });
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                //입력된 mate들(nickname값)이 user테이블에 있는 값인지 확인.
+                let hasNickResult = await mapper.admin.hasNickname(nickname);
+                if (hasNickResult == true) {
+                    mapper.plan.insertGroup(planId, nickname);
+                }
+            } //for문 끝
 
 
-    
+
+
+
+
+
+
+
+
+    }else {
+        //여행 인원이 2명 이상일 때 공금과 개인지출 나눠서 저장
+    }
     // for(var i=0; i<count.length; i++){
     //     var v = 'checkbox'+count;
     //     if(req.body.name == 'realItem'){
@@ -315,20 +358,20 @@ exports.costAdd = async function (req, res) {
     //     }
         
     // }
+    res.redirect('/plan/detailPlanShow')
+    // mapper.plan.cost(item, p_cost, cost, detailDaysId).then(function (result) {
+    //     console.log(result.insertItem);
 
-    mapper.plan.cost(item, p_cost, cost, detailDaysId).then(function (result) {
-        console.log(result.insertItem);
+    //     for (i = 0; i < req.body.cost.length; i++) {
 
-        for (i = 0; i < req.body.cost.length; i++) {
+    //             item = req.body.item[i];
+    //             cost = req.body.cost[i];
 
-                item = req.body.item[i];
-                cost = req.body.cost[i];
-
-                console.log("item, cost insert successfuly");
-        }
-    //    res.render("detailPlanShow.html", {  });
-        res.redirect('/detailPlanShow')
-    }).catch(function (error) {
-        console.log(error);
-    });
+    //             console.log("item, cost insert successfuly");
+    //     }
+    // //    res.render("detailPlanShow.html", {  });
+        
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
 }

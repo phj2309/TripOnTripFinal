@@ -2,14 +2,14 @@ function addCost(i, count, c, nameList) {
     var tagList = '';
     var collapseExample = "collapseExample";
     var checkbox = "checkbox";
-    var user = "user";
+    // var user = "user";
     var nameList = nameList.split(',');
     //count는 plan을 수정할 수 있는 사람들의 수
         collapseExample += i;
         checkbox += i;
         tagList += '<div class="row">';
         tagList += '<div class="col-4">';
-        tagList += '<div class="form-group"><label class="bmd-label-floating">항목</label><input type="text" name="realItme" class="form-control"></div>';
+        tagList += '<div class="form-group"><label class="bmd-label-floating">항목</label><input type="text" name="realItem" class="form-control"></div>';
         tagList += '</div>';
         tagList += '<div class="col-4">';
         tagList += '<div class="form-group"><label class="bmd-label-floating">비용</label><input type="text" name="realCost" class="form-control"></div>';
