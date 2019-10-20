@@ -1,112 +1,135 @@
 body {
-    background: rgb(242, 244, 246);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
+  background: rgb(242, 244, 246);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-  .detailButton{
-    display: inline-block;
-    padding : 0px;
-    margin: 0px;
-    position: relative;
-    left : 5%;
-  }
+.detailButton{
+  display: inline-block;
+  padding : 0px;
+  margin: 0px;
+  position: relative;
+  left : 5%;
+}
 
-  .mapButton{
-    position: relative;    
-    border : 0px none;
-    background-color: inherit; 
-    padding : 0px;
-    margin: 5px 3px 5px 0px;
-    color:#4c4c4c;
-  }
+.mapButton{
+  position: relative;    
+  border : 0px none;
+  background-color: inherit; 
+  padding : 0px;
+  margin: 5px 3px 5px 0px;
+  color:#4c4c4c;
+}
 
-  .textarea{
-    border : 1px solid;
-    border-radius : 20px;
-    background-color: inherit;
-    width: 100%;
-    border:1px solid rgb(196, 196, 196);
-  }
+.textarea{
+  border : 1px solid;
+  border-radius : 20px;
+  background-color: inherit;
+  width: 100%;
+  border:1px solid rgb(196, 196, 196);
+}
 
-  .heart {
-    font-size: 25px;
-    color:#fbc7d4;
-    margin: 5px 0px 5px 3px;
-  }
+.heart {
+  font-size: 25px;
+  color:#fbc7d4;
+  margin: 5px 0px 5px 3px;
+}
 
-  /** 드래그앤드롭 할때 사용하는 css*/
-  .drag-list2 > li {
-    list-style: none;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(196, 196, 196);
-    border-radius : 10px;
-    margin: 5px 0;
-    font-size: 24px;
-  }
+/** 드래그앤드롭 할때 사용하는 css*/
 
-  .drag-list2 .title {
-    display: inline-block;
-    width: 80%;
-    padding: 6px 6px 6px 12px;
-    vertical-align: top;    
-  }
+.drag-list2 {
+  position: relative;
+  left:0%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px;
+}
 
-  .drag-list2 .item {
-    display: inline-block;
-    width: 80%;
-    padding: 6px 6px 6px 12px;
-    vertical-align: top;    
-  }
-
-  .drag-list2 .drag-area {
-    display: inline-block;
-  background: #fbc7d4;
-  width: 20%;
-  height : 34px;
-  vertical-align: top;
-  
-  cursor: move;
+.drag-list2 > li {
+  list-style: none;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(196, 196, 196);
   border-radius : 10px;
+  margin: 5px 0;
+  font-size: 24px;
+}
+
+.drag-list2 .chec {
+  position: relative;
+  margin:0;
+  float: left;
+  top:-5%;
+  width: 5%;
+  height: 0;
+  margin-top: -5px;
+  padding: 0px 5px 0px 5px;
+}
+
+.drag-list2 .title {
+  display: inline-block;
+  width: 60%;
+  margin: 6px 0px 6px 6px;
+  padding: 6px 0px 6px 0px;
+  vertical-align: top;    
+}
+
+.drag-list2 .item {
+  display: inline-block;
+  width: 80%;
+  padding: 6px 6px 6px 12px;
+  vertical-align: top;    
+}
+
+.drag-list2 .drag-area {
+  position: relative;
+  float: right;
+  display: inline-block;
+background: #fbc7d4;
+width: 15%;
+height : 34px;
+vertical-align: top;
+
+cursor: move;
+border-radius : 10px;
 }
 /*끝*/
 
-  
+
 
 /*detailPlanShow_view에서 사용*/
-  .drag-list {
-    position: relative;
-    left:0%;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0px;
-  }
+.drag-list {
+  position: relative;
+  left:0%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px;
+}
 
-  .drag-list > li {
-    list-style: none;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(196, 196, 196);
-    border-radius : 10px;
-    margin: 5px 0;
-    font-size: 24px;
-  }
+.drag-list > li {
+  list-style: none;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(196, 196, 196);
+  border-radius : 10px;
+  margin: 5px 0;
+  font-size: 24px;
+}
 
-  .drag-list .title {
-    display: inline-block;
-    width: 80%;
-    padding: 6px 6px 6px 12px;
-    vertical-align: top;    
-  }
+.drag-list .title {
+  display: inline-block;
+  width: 80%;
+  padding: 6px 6px 6px 12px;
+  vertical-align: top;    
+}
 
-  .drag-list .item {
-    display: inline-block;
-    width: 70%;
-    margin: 5px 0px 5px 0px;
-    vertical-align: top;
-    font-weight: bold;
-    color:black;    
-  }
+.drag-list .item {
+  display: inline-block;
+  width: 70%;
+  margin: 5px 0px 5px 0px;
+  vertical-align: top;
+  font-weight: bold;
+  color:black;    
+}
 
-  /*끝*/
+/*끝*/
