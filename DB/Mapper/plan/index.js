@@ -96,13 +96,25 @@ module.exports = {
 		});
 	},
 
-	cost: function (_item, _p_cost,_cost, _days_detail_id) {
-		return new Promise(function (resolve, reject) {
+	insertCost: function (_item, _p_cost,_cost, _days_detail_id) {
+		return new Promise(async function (resolve, reject) {
 			var insertQuery = 'INSERT INTO tripontrip_db.day_costs (item, p_cost, cost, days_detail_id) VALUES (?, ?, ?, ?)';
 
 			sql.excuteParam(insertQuery, [_item, _p_cost,_cost, _days_detail_id]).then(function (rows) {
 				// resolve(rows);
 				resolve(true);
+			}).catch(function (error) {
+				reject(error);
+			});
+		});
+	},
+	detailIdList: async function(_planId, _dayValue) {
+		return new Promise(async function (resolve, reject) {
+			var selectQuery = 'SELECT days_detail_id FROM tripontrip_db.days_detail WHERE plan_id = ? AND days = ?';
+
+			sql.excuteParam(selectQuery, [_planId, _dayValue]).then(function (rows) {
+				resolve(rows);
+				// resolve(true);
 			}).catch(function (error) {
 				reject(error);
 			});
