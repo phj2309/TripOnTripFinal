@@ -39,7 +39,7 @@ exports.toProfile = async function(req, res)
 {
 	var userId = req.session.userId;
 	let nickname = await mapper.admin.findNicknameById(userId);
-    res.render("myPage_plan.html", {nickname: nickname[0].nickname});
+    res.render("myPage_profile.html", {nickname: nickname[0].nickname});
 }
 exports.planView = async function(req, res)
 {
