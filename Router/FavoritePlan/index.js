@@ -8,6 +8,8 @@ const controller = require('./controller');
 
 router.get('/', controller.t);
 
+router.post('/insert', controller.insertFavorite);
+
 // USER VIEW
 //router.get('/survey/:key', userViewController.userSwitch);
 

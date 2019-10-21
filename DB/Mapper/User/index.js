@@ -28,7 +28,7 @@ module.exports = {
 
 	getUserId: function(_id) {
 		return new Promise(function(resolve, reject) {
-			var selectQuery = 'SELECT * FROM User WHERE id = ?';
+			var selectQuery = 'SELECT * FROM user WHERE id = ?';
 
 			sql.excuteParam(selectQuery, [_id]).then(function(rows) {
 				if(rows.length == 0)

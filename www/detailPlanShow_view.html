@@ -45,6 +45,22 @@
     
                
             }
+            function insert(daysDetailId) {
+                console.log('daysDetailId : '+daysDetailId);
+
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        data: { 'daysDetailId': daysDetailId },
+                        url: '/favoritePlan/insert',
+                        success: function (responseData) {
+                            console.log(responseData);
+                        },
+                        error: function (error) {
+                        }
+                    });
+
+                }
         </script>
 </head>
 
@@ -146,6 +162,7 @@
                                                 </div>
                                         <div class="rightbox">
                                             <form method="post">
+                                                
                                                 <!-- <input type="hidden" name="planId" id="planId" value="<%= planId %>"> -->
                                                 <div class="row">
                                                     <br/><br/><br/>
@@ -165,7 +182,7 @@
                                                                         <% if(locals.detailList) { %>
                                                                         <% for(var j=0; j<detailList.length; j++) { %>
                                                                         <% if(detailList[j].days == i) { %>
-                                                                        <li><span><i class="heart fa fa-heart-o"></i></span><span class="item"><%= detailList[j].content %>
+                                                                        <li><span onclick='javascript:insert(<%= detailList[j].daysDetailId %>)'><i class="heart fa fa-heart-o"></i></span><span class="item"><%= detailList[j].content %>
                                                                                 <h10 class="time">
                                                                                     <%= detailList[j].startTime %> ~ <%= detailList[j].finishTime %></h10>
                                                                                 </span><span>
@@ -173,6 +190,7 @@
                                                                                             <i class="material-icons">map</i></button>
                                                                                     
                                                                                     </span></li>
+                                                                                    <!-- <input type="hidden" name="daysDetailId" id="daysDetailId" value="<%= detailList[j].daysDetailId %>"> -->
                                                                         <%  } } }%>
                                                                     </ul>
                                                                 </div>
@@ -262,6 +280,22 @@
                     var planId = $('#planId').val();
                     $('#btnAdd').attr('onclick', "location.href= '/plan/detailPlanCreate/"+planId+"/"+dayValue+"'");
                 });
+
+                $('#insert').click(function (){
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        data: jsonData,
+                        url: './gamesave',
+                        success: function (responseData) {
+                            console.log(responseData);
+                        },
+                        error: function (error) {
+                        }
+                    });
+                });
+
+               
 
 
                 $(document).ready(function () {

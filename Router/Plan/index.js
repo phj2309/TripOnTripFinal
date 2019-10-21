@@ -23,6 +23,8 @@ router.get('/costPage/:planId/:dayValue', controller.cost);
 router.post('/costPage/:planId/:dayValue', controller.costAdd);
 
 router.get('/modify/:planId', controller.planModifyView);
+
+router.post('/detailPlanModify', controller.planModify);
 // USER VIEW
 //router.get('/survey/:key', userViewController.userSwitch);
 

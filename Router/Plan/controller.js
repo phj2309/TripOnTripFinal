@@ -140,6 +140,12 @@ exports.showToCreate = async function(req, res)
     content: content, sHour: sHour, sMin: sMin, fHour: fHour, fMin:fMin, nickname: nickname[0].nickname});
 }
 
+exports.planModify = async function(req, res)
+{
+    var planId = req.body.planId;
+    res.render("detailPlanShow.html");
+}
+
 exports.planModifyView = async function(req, res)
 {
     var flag = 'm';
