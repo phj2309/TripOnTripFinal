@@ -22,10 +22,11 @@ exports.t = async function(req, res)
                     console.log(groupList[j]);
                 }
                 let daysDetailList = await mapper.plan.getDetailPlan(favoriteList[i].days_detail_id);
-                var title = planList[i].title;
+                console.log('planList', planList);
+                var title = planList[0].title;
                 console.log('title: '+title);
                 
-                myFavoriteList.push({country: planList[i].country, group: groupList, content: daysDetailList[i].content, startTime: daysDetailList[i].startTime, finishTime: daysDetailList[i].finishTime})
+                myFavoriteList.push({country: planList[0].country, group: groupList, content: daysDetailList[0].content, startTime: daysDetailList[0].startTime, finishTime: daysDetailList[0].finishTime})
                 console.log(myFavoriteList);
             }
             res.render("basket_stack2.html", { myFavoriteList: myFavoriteList });

@@ -131,6 +131,7 @@
                                                 <th>Map</th>
                                             </thead>
                                             <tbody class = "tbody_style">
+                                                <% for(var i=0; i<myFavoriteList.length; i++) { %>
                                                 <tr>
                                                     <td>
                                                     <div class="form-check">
@@ -144,19 +145,25 @@
                                                     </td>
                                                     <td>
                                                         <ul style="list-style: none; padding : 0px;">
-                                                            <li>자전거 산책, 점심</li>
-                                                            <li>말레이시아</li>
-                                                            <li>09:00~12:00</li>
+                                                            <li><%= myFavoriteList[i].content %></li>
+                                                            <li><%= myFavoriteList[i].country %></li>
+                                                            <li><%= myFavoriteList[i].startTime %>~<%= myFavoriteList[i].finighTime %></li>
                                                         </ul>
                                                     </td>
-                                                    
-                                                    <td>30under_juu, Zyoon2_da</td>
+                                                    <td><% for(var j=0;j<myFavoriteList[i].group.length; j++) { %>
+                                                            <% if(j == myFavoriteList[i].group.length-1) {%>
+                                                                <%= myFavoriteList[i].group[j] %>
+                                                                <% }else{ %>
+                                                                <%= myFavoriteList[i].group[j] %>, 
+                                                                <% } } %>
+                                                    </td>
                                                     <td>
                                                             <button type="button" class="btn btn-white btn-round btn-just-icon btn-add" onClick="location.href= '/map'">
                                                                 <i class='material-icons'>map</i>
                                                             </button>
                                                         </td>
-                                                </tr>                                           
+                                                </tr> 
+                                                <% } %>                                          
                                             </tbody>
                                         </table>
                                     </div>
