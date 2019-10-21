@@ -174,6 +174,8 @@
                                                                 style="color : #8C8C8C;">
                                                                 <i class="material-icons">attach_money</i>
                                                             </button>
+                                                            <br/>
+                                                            <br/>
                                                         <style>
                                                             .time {
                                                                 font-size: 7pt;
@@ -190,7 +192,7 @@
                                                                     <% if(detailList[j].days == i) { %>
                                                                     <li> 
                                                                         <span class="chec">
-                                                                                <div class="form-check" style="display: inline-block; padding:0px;">
+                                                                                <div class="form-check">
                                                                                         <label class="form-check-label" style="margin:0px;">
                                                                                           <input class="form-check-input" type="checkbox" value="">
                                                                                           <span class="form-check-sign">
@@ -199,11 +201,14 @@
                                                                                         </label>
                                                                                       </div>
                                                                         </span>
-                                                                        <span class="title"><%= detailList[j].content %>
-                                                                            <h10 class="time">
+                                                                        <span class="title">
+                                                                            <%= detailList[j].content %>
+                                                                        
+                                                                            <h10 class="time" style="font-size: 13px;">
                                                                                 <%= detailList[j].startTime %> ~ <%= detailList[j].finishTime %></h10>
+                                                                            
                                                                             </span>
-                                                                        <span class="drag-area"></span></li>
+                                                                        <div class="drag-area"></div></li>
                                                                     <%  } } }%>
                                                                 </ul>
                                                             </div>

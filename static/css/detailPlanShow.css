@@ -63,15 +63,16 @@ body {
   top:-5%;
   width: 5%;
   height: 0;
-  margin-top: -5px;
+  margin-top: -10px;
   padding: 0px 5px 0px 5px;
 }
 
 .drag-list2 .title {
   display: inline-block;
   width: 60%;
-  margin: 6px 0px 6px 6px;
-  padding: 6px 0px 6px 0px;
+  font-size: 15px;
+  margin: 5px 0px 5px 15px;
+  padding: 0px 0px 0px 16px;
   vertical-align: top;    
 }
 
