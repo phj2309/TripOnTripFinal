@@ -161,11 +161,36 @@ module.exports = {
 			});
 		});
 	},
+	insertFavorite: function(_userId,_planId, _daysDetailId) {
+        return new Promise(function(resolve, reject) {
+			var insertQuery = 'INSERT INTO tripontrip_db.favorite (user_id, plan_id, days_detail_id) VALUES (?, ?, ?)';
+
+			sql.excuteParam(insertQuery, [_userId, _planId, _daysDetailId]).then(function(rows) {
+				resolve(true);
+			}).catch(function(error) {
+				reject(error);
+			});
+		});
+	},
 	getReviewList: function(_planId) {
 		return new Promise(function(resolve, reject) {
 			var selectQuery = 'SELECT * FROM tripontrip_db.review WHERE plan_id = ?';
 
 			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+
+				resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		});
+	},
+	getFavoriteList: async function(_userId) {
+		return new Promise(function(resolve, reject) {
+			var selectQuery = 'SELECT * FROM tripontrip_db.favorite WHERE user_id = ?';
+
+			sql.excuteParam(selectQuery, [_userId]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
 
@@ -233,6 +258,32 @@ module.exports = {
 		return new Promise(function(resolve, reject){
 			var selectQuery = 'SELECT title, country, date_format(startDate, ?) startDate, date_format(finishDate, ?) finishDate FROM tripontrip_db.plan WHERE plan_id = ?';
 			sql.excuteParam(selectQuery, [_sf, _ff, _planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+				else
+					resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		})
+	},
+	getUserId: function(_planId){
+		return new Promise(function(resolve, reject){
+			var selectQuery = 'SELECT user_id FROM tripontrip_db.plan WHERE plan_id = ?';
+			sql.excuteParam(selectQuery, [_planId]).then(function(rows) {
+				if(rows.length == 0)
+					resolve(null);
+				else
+					resolve(rows);
+			}).catch(function(error) {
+				reject(error);
+			});
+		})
+	},
+	getDetailPlan: function(_daysDetailId){
+		return new Promise(function(resolve, reject){
+			var selectQuery = 'SELECT * FROM tripontrip_db.days_detail WHERE days_detail_id = ?';
+			sql.excuteParam(selectQuery, [_daysDetailId]).then(function(rows) {
 				if(rows.length == 0)
 					resolve(null);
 				else

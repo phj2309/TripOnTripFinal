@@ -64,6 +64,7 @@ exports.planView = async function(req, res)
 	var reviewList = [];
 	let reviewListResult = await mapper.plan.getReviewList(planId);
 	for(var i=0; i<detailPlanList.length; i++) {
+		var daysDetailId = detailPlanList[i].days_detail_id;
 		var dayday = detailPlanList[i].days;
 		dayday = dayday.substring(3, 4);
 		console.log(dayday);
@@ -71,7 +72,7 @@ exports.planView = async function(req, res)
 		st = st.substring(0, 5);
 		var ft = detailPlanList[i].finishTime;
 		ft = ft.substring(0, 5);
-		detailList.push({days: dayday, content: detailPlanList[i].content, startTime: st, finishTime: ft})
+		detailList.push({days: dayday,daysDetailId: daysDetailId, content: detailPlanList[i].content, startTime: st, finishTime: ft})
 	}
 	if (reviewListResult) {
 		for (var j = 0; j < reviewListResult.length; j++) {
