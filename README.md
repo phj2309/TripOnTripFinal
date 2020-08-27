@@ -14,11 +14,12 @@ _여럿이 모여 하나의 여행 플랜을 짤 수 있다면?_
 
 ---
 ## 기술 스택
-front-end: HTML5, CSS3
-back-end: javascript, Node.js 10.15.3, cordova(packaging)
-server: awd-ec2
-DB: MySQL, aws-rds
-api: nodemon, forever
++ front-end: HTML5, CSS3
++ back-end: javascript, Node.js 10.15.3, cordova(packaging)
++ server: awd-ec2
++ DB: MySQL, aws-rds
++ api: nodemon, forever
+
 > nodemon은 서버 코드가 변경시 자동으로 재시작 되도록 하기 위해 사용한다.  
 > forever은 가상서버(ec2)에서 프로젝트가 24시간 구동되도록 하기 위해 사용한다.  
 ---
