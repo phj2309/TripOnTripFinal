@@ -304,5 +304,15 @@ module.exports = {
 				reject(error);
 			});
 		})
+	},
+	deletePlan: function(_planId){
+		return new Promise(function(resolve, reject){
+			var deleteQuery = 'DELETE FROM tripontrip_db.plan WHERE plan_id = ?';
+			sql.excuteParam(deleteQuery, [_planId]).then(function(rows){
+				resolve(true);
+			}).catch(function(error){
+				reject(error);
+			});
+		})
 	}
 }

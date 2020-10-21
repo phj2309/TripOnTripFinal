@@ -25,6 +25,8 @@ router.post('/costPage/:planId/:dayValue', controller.costAdd);
 router.get('/modify/:planId', controller.planModifyView);
 
 router.post('/detailPlanModify', controller.planModify);
+
+router.get('/:planId', controller.removePlan);
 // USER VIEW
 //router.get('/survey/:key', userViewController.userSwitch);
 

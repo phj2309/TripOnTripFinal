@@ -125,7 +125,8 @@ exports.insertPlan = async function(req, res)
 
 exports.showToCreate = async function(req, res)
 {
-    var planId = req.session.planId;
+    // 원본: var planId = req.session.planId;
+    var planId = req.params.planId;
     var dayValue = req.params.dayValue;
     req.session.dayValue = dayValue;
     var sdayValue = req.session.dayValue;
@@ -135,7 +136,6 @@ exports.showToCreate = async function(req, res)
 
     var userId = req.session.userId;
 	let nickname = await mapper.admin.findNicknameById(userId);
-    
     res.render("detailPlanCreate.html", { planId : planId, dayValue: sdayValue, lat: lat, lon: lon, addressValue: addressValue, keyword: keyword,
     content: content, sHour: sHour, sMin: sMin, fHour: fHour, fMin:fMin, nickname: nickname[0].nickname});
 }
@@ -166,6 +166,10 @@ exports.planModifyView = async function(req, res)
 	var a2=new Date(v2[0],v2[1],v2[2]).getTime();
 
     var day = (a2-a1)/(1000*60*60*24) +1;
+    // 여기서 session값을 저장해줌으로써 'my plan' 메뉴로 수정화면 들락날락할 때 해당 plan_id에 맞는 day, title값들이 출력됨.
+    req.session.day = day;
+    req.session.title = title;
+    req.session.planId = planId;
     
     let detailPlanList = await mapper.plan.detailPlanList(planId);
 	var detailList = [];
@@ -265,14 +269,14 @@ exports.insertDetailPlan = async function(req, res)
             st = st.substring(0, 5);
             var ft = result[i].finishTime;
             ft = ft.substring(0, 5);
-            detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft})
+            detailList.push({days: dayday, content: result[i].content, startTime: st, finishTime: ft});
             console.log('detailList: '+detailList);
         }
         if (reviewListResult) {
             for (var j = 0; j < reviewListResult.length; j++) {
                 var d = reviewListResult[j].days;
                 d = d.substring(3, 4);
-                reviewList.push({ days: d, review: reviewListResult[j].comment })
+                reviewList.push({ days: d, review: reviewListResult[j].comment });
             }
             res.render("detailPlanShow.html", {nickname: nickname[0].nickname, planId: planId, title: title, day: day, detailList: detailList,fdayValue: days, reviewList: reviewList, flag: 'i'});
         } else
@@ -339,6 +343,13 @@ exports.insertReview = async function (req, res) {
      
 },
 
+exports.removePlan = async function (req, res) {
+    var planId = req.params.planId;
+    console.log('removePlan ---> ', planId);
+    
+    await mapper.plan.deletePlan(planId);
+    res.redirect('/myPage_plan');
+},
 
 exports.cost = async function (req, res) {
 
