@@ -18,7 +18,7 @@ module.exports = {
 
 	/**
 	* @param {string} sql SELECt * FROM user where id = ?
-	* @param {array} params ['bg0820', 'bg0820@naver.com', '22'];
+	
 	*/
 	excuteParam: function(sql, params) {
 		return new Promise(function(resolve, reject) {

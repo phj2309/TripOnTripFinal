@@ -37,9 +37,18 @@ exports.toMyPlan = async function(req, res)
 
 exports.toProfile = async function(req, res)
 {
-	var userId = req.session.userId;
-	let nickname = await mapper.admin.findNicknameById(userId);
-    res.render("myPage_profile.html", {nickname: nickname[0].nickname});
+	let nickname, userId;
+	if (req.session.userId) {
+		userId = req.session.userId;
+		nickname = await mapper.admin.findNicknameById(userId);
+		res.render("myPage_profile.html", {nickname: nickname[0].nickname, userId: userId});
+	}
+	else {
+		res.redirect('/user/login');
+	}
+	
+	
+	
 }
 exports.planView = async function(req, res)
 {
@@ -210,31 +219,34 @@ exports.toMain = async function (req, res) {
 			let planListResult = await mapper.plan.planList(sf, ff);
 	
 			var planList = [];
-			for(var i=0; i < planListResult.length; i++) {
-				var planId = planListResult[i].plan_id;
-				var title = planListResult[i].title;
-				var startDate = planListResult[i].startDate;
-				var finishDate = planListResult[i].finishDate;
-				//console.log(planId);
 
-				let groupListResult = await mapper.plan.groupList(planId); 
-				var groupList = [];
-				for(var j=0; j<groupListResult.length; j++) {
-					groupList[j] = groupListResult[j].nickname;
-
-				}
-				planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
-				//console.log(planList);
-				//console.log(planList);
-				/*.then(function (result) {
+			if (planListResult != null){
+				for(var i=0; i < planListResult.length; i++) {
+					var planId = planListResult[i].plan_id;
+					var title = planListResult[i].title;
+					var startDate = planListResult[i].startDate;
+					var finishDate = planListResult[i].finishDate;
+					//console.log(planId);
+	
+					let groupListResult = await mapper.plan.groupList(planId); 
 					var groupList = [];
-					
-				}).catch(function (error) {
-					console.log(error);
-				});*/
+					for(var j=0; j<groupListResult.length; j++) {
+						groupList[j] = groupListResult[j].nickname;
+	
+					}
+					planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
+					//console.log(planList);
+					//console.log(planList);
+					/*.then(function (result) {
+						var groupList = [];
+						
+					}).catch(function (error) {
+						console.log(error);
+					});*/
+	
+				}
 
 			}
-
 			
 			res.render('index.html', { nickname: nickname, planList: planList });
 	
@@ -243,21 +255,24 @@ exports.toMain = async function (req, res) {
 		var ff = '%Y-%m-%d';
 		var planList = [];
 		let planListResult = await mapper.plan.planList(sf, ff);
-		
-		for(var i=0; i<planListResult.length; i++) {
-			var planId = planListResult[i].plan_id;
-			var title = planListResult[i].title;
-			var startDate = planListResult[i].startDate;
-			var finishDate = planListResult[i].finishDate;
-			var groupList = [];
-
-			let groupListResult = await mapper.plan.groupList(planId);
-			for(var j=0; j<groupListResult.length; j++) {
-				groupList[j] = groupListResult[j].nickname;
+		if (planListResult != null){
+			for(var i=0; i<planListResult.length; i++) {
+				var planId = planListResult[i].plan_id;
+				var title = planListResult[i].title;
+				var startDate = planListResult[i].startDate;
+				var finishDate = planListResult[i].finishDate;
+				var groupList = [];
+	
+				let groupListResult = await mapper.plan.groupList(planId);
+				for(var j=0; j<groupListResult.length; j++) {
+					groupList[j] = groupListResult[j].nickname;
+				}
+				planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
+					//console.log(planList);
 			}
-			planList.push({planId: planId, title: title, startDate: startDate, finishDate: finishDate, group: groupList});
-				//console.log(planList);
+			// res.render('index.html', { nickname: 'User', planList: planList });
 		}
 		res.render('index.html', { nickname: 'User', planList: planList });
+		
 	}
 }
